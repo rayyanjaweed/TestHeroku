@@ -108,7 +108,7 @@ CREATE TABLE `product` (
 	`cost` decimal NOT NULL,
 	`price` decimal NOT NULL,
 	`name` tinytext NOT NULL,
-	`description` text NOT NULL DEFAULT `No description`,
+	`description` text NOT NULL,
 	`qoh` int(8) NOT NULL DEFAULT 0,
 	`active` tinyint(1) NOT NULL DEFAULT 1, #acts as a boolean
 
