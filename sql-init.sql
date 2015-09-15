@@ -42,7 +42,7 @@ CREATE TABLE `payment` (
 
 	#Add PK & FK constraints
 	CONSTRAINT `payment_id` PRIMARY KEY (`payment_id`),
-	CONSTRAINT `status_code` FOREIGN KEY (`status_prefix`, `status_id`) 
+	CONSTRAINT `payment_fk_1` FOREIGN KEY (`status_prefix`, `status_id`) 
 		REFERENCES `status`(`prefix`,`status_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -77,11 +77,11 @@ CREATE TABLE `customer` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `customer_id` PRIMARY KEY (`customer_id`),
-	CONSTRAINT `ship_address_id` FOREIGN KEY (`ship_address_id`) 
+	CONSTRAINT `customer_fk_1` FOREIGN KEY (`ship_address_id`) 
 		REFERENCES `address`(`address_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `bill_address_id` FOREIGN KEY (`bill_address_id`) 
+	CONSTRAINT `customer_fk_2` FOREIGN KEY (`bill_address_id`) 
 		REFERENCES `address`(`address_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -114,11 +114,11 @@ CREATE TABLE `product` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `product_id` PRIMARY KEY (`product_id`),
-	CONSTRAINT `partner_id` FOREIGN KEY (`partner_id`) 
+	CONSTRAINT `product_fk_1` FOREIGN KEY (`partner_id`) 
 		REFERENCES `partner`(`partner_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `taxonomy_id` FOREIGN KEY (`taxonomy_id`) 
+	CONSTRAINT `product_fk_2` FOREIGN KEY (`taxonomy_id`) 
 		REFERENCES `taxonomy`(`taxonomy_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -136,11 +136,11 @@ CREATE TABLE `product_review` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `product_review_id` PRIMARY KEY (`product_review_id`),
-	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
+	CONSTRAINT `product_review_fk_1` FOREIGN KEY (`product_id`) 
 		REFERENCES `product`(`product_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `product_review_fk_2` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -157,11 +157,11 @@ CREATE TABLE `partner_review` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `partner_review_id` PRIMARY KEY (`partner_review_id`),
-	CONSTRAINT `partner_id` FOREIGN KEY (`partner_id`) 
+	CONSTRAINT `partner_review_fk_1` FOREIGN KEY (`partner_id`) 
 		REFERENCES `partner`(`partner_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `partner_review_fk_2` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -181,15 +181,15 @@ CREATE TABLE `order` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `order_id` PRIMARY KEY (`order_id`),
-	CONSTRAINT `status_code` FOREIGN KEY (`status_prefix`, `status_id`) 
+	CONSTRAINT `order_fk_1` FOREIGN KEY (`status_prefix`, `status_id`) 
 		REFERENCES `status`(`prefix`,`status_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `order_fk_2` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `payment_id` FOREIGN KEY (`payment_id`) 
+	CONSTRAINT `order_fk_3` FOREIGN KEY (`payment_id`) 
 		REFERENCES `payment`(`payment_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -204,11 +204,11 @@ CREATE TABLE `order_line` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `order_line_id` PRIMARY KEY (`order_line_id`),
-	CONSTRAINT `order_id` FOREIGN KEY (`order_id`) 
+	CONSTRAINT `order_line_fk_1` FOREIGN KEY (`order_id`) 
 		REFERENCES `order`(`order_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
+	CONSTRAINT `order_line_fk_2` FOREIGN KEY (`product_id`) 
 		REFERENCES `product`(`product_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -220,8 +220,8 @@ CREATE TABLE `cart` (
 	`customer_id` int(8) NOT NULL,
 	
 	#Add PK & FK Constraints
-	CONSTRAINT `customer_id` PRIMARY KEY (`customer_id`),
-	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `cart_id` PRIMARY KEY (`customer_id`),
+	CONSTRAINT `cart_fk_1` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -236,11 +236,11 @@ CREATE TABLE `cart_line` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `cart_line_id` PRIMARY KEY (`cart_line_id`),
-	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `cart_line_fk_1` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT,
-	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
+	CONSTRAINT `cart_line_fk_2` FOREIGN KEY (`product_id`) 
 		REFERENCES `product`(`product_id`)
 		ON UPDATE CASCADE 
 		ON DELETE RESTRICT
@@ -251,8 +251,8 @@ CREATE TABLE `cart_line` (
 
 INSERT INTO `partner` SET
 	`name` = 'Lakeshore Market',
-	`contact_name` = 'Magliotyan' #Mag[gie]-[El]liot[t]-[Ray]yan
-	`tel` = 5551234567
+	`contact_name` = 'Magliotyan', #Mag[gie]-[El]liot[t]-[Ray]yan
+	`tel` = 5551234567,
 	`email` = `epost@luc.edu`,
 	`password` = 'THIS NEEDS TO BE HASHED';
 
