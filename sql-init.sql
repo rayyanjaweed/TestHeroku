@@ -11,11 +11,11 @@ USE `lakeshore_market`;
 #create the STATUS table
 CREATE TABLE `status` (
 	`prefix` varchar(255) NOT NULL,
-	`code` tinyint(3) NOT NULL,
+	`status_id` tinyint(3) NOT NULL,
 	`description` tinytext NOT NULL,
 
 	#Add PK & FK Constraints
-	CONSTRAINT `status_code` PRIMARY KEY (`prefix`,`code`)
+	CONSTRAINT `status_code` PRIMARY KEY (`prefix`,`status_id`)
 );
 
 #create the TAXONOMY table
@@ -32,7 +32,8 @@ CREATE TABLE `taxonomy` (
 #Create the PAYMENT table
 CREATE TABLE `payment` (
 	`payment_id` int(8) NOT NULL AUTO_INCREMENT,
-	`status_code` tinyint(3) NOT NULL,
+	`status_prefix` varchar(255) NOT NULL DEFAULT 'payment',
+	`status_id` tinyint(3) NOT NULL,
 	`method` tinytext NULL,
 	`method_transaction_id` varchar(255) NULL,
 	`date_paid` timestamp NULL, #we use "timestamp" over "datetime" b/c timestamp saves in UTC
@@ -41,8 +42,10 @@ CREATE TABLE `payment` (
 
 	#Add PK & FK constraints
 	CONSTRAINT `payment_id` PRIMARY KEY (`payment_id`),
-	CONSTRAINT `payment_fk_1` FOREIGN KEY (`status_code`) 
-		REFERENCES `status`(`status_code`)
+	CONSTRAINT `status_code` FOREIGN KEY (`status_prefix`, `status_id`) 
+		REFERENCES `status`(`prefix`,`status_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 #create the ADDRESS table
@@ -55,7 +58,7 @@ CREATE TABLE `address` (
 	`country` varchar(255) NOT NULL,
 	`postal_code` varchar(255) NOT NULL,
 
-	#Add PK & FK Constraitns
+	#Add PK & FK Constraints
 	CONSTRAINT `address_id` PRIMARY KEY (`address_id`)
 );
 
@@ -72,12 +75,16 @@ CREATE TABLE `customer` (
 	`paypal_cust_id` varchar(255) NULL,
 
 
-	#Add PK & FK Constraitns
+	#Add PK & FK Constraints
 	CONSTRAINT `customer_id` PRIMARY KEY (`customer_id`),
-	CONSTRAINT `customer_fk_1` FOREIGN KEY (`ship_address_id`) 
-		REFERENCES `address`(`address_id`),
-	CONSTRAINT `customer_fk_2` FOREIGN KEY (`bill_address_id`) 
+	CONSTRAINT `ship_address_id` FOREIGN KEY (`ship_address_id`) 
 		REFERENCES `address`(`address_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `bill_address_id` FOREIGN KEY (`bill_address_id`) 
+		REFERENCES `address`(`address_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 #create the PARTNER table
@@ -89,7 +96,7 @@ CREATE TABLE `partner` (
 	`email` varchar(255) NOT NULL,
 	`password` varchar(255) NOT NULL,
 
-	#Add PK & FK Constraitns
+	#Add PK & FK Constraints
 	CONSTRAINT `partner_id` PRIMARY KEY (`partner_id`)
 );
 
@@ -105,12 +112,16 @@ CREATE TABLE `product` (
 	`qoh` int(8) NOT NULL DEFAULT 0,
 	`active` tinyint(1) NOT NULL DEFAULT 1, #acts as a boolean
 
-	#Add PK & FK Constraitns
+	#Add PK & FK Constraints
 	CONSTRAINT `product_id` PRIMARY KEY (`product_id`),
-	CONSTRAINT `product_fk_1` FOREIGN KEY (`partner_id`) 
-		REFERENCES `partner`(`partner_id`),
-	CONSTRAINT `product_fk_2` FOREIGN KEY (`taxonomy_id`) 
+	CONSTRAINT `partner_id` FOREIGN KEY (`partner_id`) 
+		REFERENCES `partner`(`partner_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `taxonomy_id` FOREIGN KEY (`taxonomy_id`) 
 		REFERENCES `taxonomy`(`taxonomy_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 
@@ -124,11 +135,15 @@ CREATE TABLE `product_review` (
 	`review_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	#Add PK & FK Constraints
-	CONSTRAINT `product_review_pk` PRIMARY KEY (`product_review_id`),
-	CONSTRAINT `product_review_fk_1` FOREIGN KEY (`product_id`) 
-		REFERENCES `product`(`product_id`),
-	CONSTRAINT `product_review_fk_2` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `product_review_id` PRIMARY KEY (`product_review_id`),
+	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
+		REFERENCES `product`(`product_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 #create the PARTNER_REVIEW table
@@ -141,18 +156,23 @@ CREATE TABLE `partner_review` (
 	`review_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	#Add PK & FK Constraints
-	CONSTRAINT `partner_review_pk` PRIMARY KEY (`partner_review_id`),
-	CONSTRAINT `partner_review_fk_1` FOREIGN KEY (`partner_id`) 
-		REFERENCES `partner`(`partner_id`),
-	CONSTRAINT `partner_review_fk_2` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `partner_review_id` PRIMARY KEY (`partner_review_id`),
+	CONSTRAINT `partner_id` FOREIGN KEY (`partner_id`) 
+		REFERENCES `partner`(`partner_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 
 #create the ORDER table
 CREATE TABLE `order` (
 	`order_id` int(8) NOT NULL AUTO_INCREMENT,
-	`status_code` int(8) NOT NULL,
+	`status_prefix` varchar(255) NOT NULL DEFAULT 'payment',
+	`status_id` tinyint(3) NOT NULL,
 	`customer_id` int(8) NOT NULL,
 	`payment_id` int(8) NOT NULL,
 	`date_purchased` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -161,12 +181,18 @@ CREATE TABLE `order` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `order_id` PRIMARY KEY (`order_id`),
-	CONSTRAINT `order_fk_1` FOREIGN KEY (`status_code`) 
-		REFERENCES `status`(`status_code`),
-	CONSTRAINT `order_fk_2` FOREIGN KEY (`customer_id`) 
-		REFERENCES `customer`(`customer_id`),
-	CONSTRAINT `order_fk_3` FOREIGN KEY (`payment_id`) 
+	CONSTRAINT `status_code` FOREIGN KEY (`status_prefix`, `status_id`) 
+		REFERENCES `status`(`prefix`,`status_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+		REFERENCES `customer`(`customer_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `payment_id` FOREIGN KEY (`payment_id`) 
 		REFERENCES `payment`(`payment_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 #create the ORDER table
@@ -178,10 +204,14 @@ CREATE TABLE `order_line` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `order_line_id` PRIMARY KEY (`order_line_id`),
-	CONSTRAINT `order_line_fk_1` FOREIGN KEY (`order_id`) 
-		REFERENCES `order`(`order_id`),
-	CONSTRAINT `order_line_fk_2` FOREIGN KEY (`product_id`) 
+	CONSTRAINT `order_id` FOREIGN KEY (`order_id`) 
+		REFERENCES `order`(`order_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
 		REFERENCES `product`(`product_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 
@@ -190,9 +220,11 @@ CREATE TABLE `cart` (
 	`customer_id` int(8) NOT NULL,
 	
 	#Add PK & FK Constraints
-	CONSTRAINT `cart_pk` PRIMARY KEY (`customer_id`),
-	CONSTRAINT `cart_fk_1` FOREIGN KEY (`customer_id`) 
+	CONSTRAINT `customer_id` PRIMARY KEY (`customer_id`),
+	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
 		REFERENCES `customer`(`customer_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );*/
 
 #create the CART_LINE table
@@ -204,10 +236,14 @@ CREATE TABLE `cart_line` (
 
 	#Add PK & FK Constraints
 	CONSTRAINT `cart_line_id` PRIMARY KEY (`cart_line_id`),
-	CONSTRAINT `cart_line_fk_1` FOREIGN KEY (`customer_id`) 
-		REFERENCES `customer`(`customer_id`),
-	CONSTRAINT `cart_line_fk_2` FOREIGN KEY (`product_id`) 
+	CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) 
+		REFERENCES `customer`(`customer_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT,
+	CONSTRAINT `product_id` FOREIGN KEY (`product_id`) 
 		REFERENCES `product`(`product_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 
