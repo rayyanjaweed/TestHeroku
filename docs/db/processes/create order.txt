@@ -1,0 +1,53 @@
+PROCESS: Create Order (paypal orders only)
+	1) Customer adds items to cart
+	2) Customer "checks out"
+		2a) customer confirms shipping address
+		2b) sum order total
+		2c) Customer is taken to paypal for billing
+			c1) If CUSTOMER record has paypal customer id saved, pass this information, else save it when customer returns from paypal
+	3) Paypal sends customer back to us with confirmation # or error
+		--If error:
+		3a) Create PAYMENT:
+			INSERT INTO `payment` SET
+				`status_prefix` = "payment",
+				`status_id` = 0,
+				`method` = "paypal",
+				`method_transaction_id` = {paypal confirmation #} [or NULL if no confirmation #],
+				`date_paid` = NULL
+				`date_refunded` = NULL,
+				`total_paid` = NULL
+
+		-- If NOT error:
+		3a) Create PAYMENT:
+			INSERT INTO `payment` SET
+				`status_prefix` = "payment",
+				`status_id` = 1,
+				`method` = "paypal",
+				`method_transaction_id` = {paypal confirmation #},
+				`date_paid` = CURRENT_TIMESTAMP
+				`date_refunded` = NULL,
+				`total_paid` = {payment total}
+
+		3b) Create ORDER:
+			INSERT INTO `order` SET
+				`status_prefix` = "order",
+				`status_id` = 1,
+				`customer_id` = {customer ID},
+				`payment_id` = {The payment ID from the insert in 3a},
+				`date_purchased` = CURRENT_TIMESTAMP,
+				`date_refunded` = NULL,
+				`tracking_number` = NULL
+
+		3c) Create ORDER_LINEs:
+			INSERT INTO `order_line` 
+			(`order_id`, `product_id`, `qty`)
+			VALUES
+			(SELECT {Order # from 3b}, `product_id`, `qty` FROM `cart_line` WHERE `customer_id` = {customer ID})
+
+		3d) Delete CART_LINEs:
+			DELETE FROM `cart_line` WHERE `customer_id` = {Customer ID}
+
+
+
+
+

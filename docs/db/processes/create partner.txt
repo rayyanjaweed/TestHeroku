@@ -1,0 +1,5 @@
+PROCESS: Create Partner
+	1) Collect telephone, name, contact name, email, password
+	2) Collect partner address
+	3) Create ADDRESS (billing)
+	4) Create PARTNER (above entities)
