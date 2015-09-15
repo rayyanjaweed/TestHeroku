@@ -54,6 +54,7 @@ CREATE TABLE `address` (
 	`line1` varchar(255) NOT NULL,
 	`line2` varchar(255) NULL,
 	`line3` varchar(255) NOT NULL,
+	`city` varchar(255) NOT NULL,
 	`state` varchar(255) NOT NULL,
 	`country` varchar(255) NOT NULL,
 	`postal_code` varchar(255) NOT NULL,
@@ -90,6 +91,7 @@ CREATE TABLE `customer` (
 #create the PARTNER table
 CREATE TABLE `partner` (
 	`partner_id` int(8) NOT NULL AUTO_INCREMENT,
+	`address_id` int(8) NOT NULL, 
 	`name` tinytext NOT NULL,
 	`contact_name` tinytext NOT NULL,
 	`tel` int(14) NOT NULL,
@@ -97,7 +99,11 @@ CREATE TABLE `partner` (
 	`password` varchar(255) NOT NULL,
 
 	#Add PK & FK Constraints
-	CONSTRAINT `partner_id` PRIMARY KEY (`partner_id`)
+	CONSTRAINT `partner_id` PRIMARY KEY (`partner_id`),
+	CONSTRAINT `partner_fk_1` FOREIGN KEY (`address_id`) 
+		REFERENCES `address`(`address_id`)
+		ON UPDATE CASCADE 
+		ON DELETE RESTRICT
 );
 
 #create the PRODUCT table
@@ -249,19 +255,29 @@ CREATE TABLE `cart_line` (
 
 # Inserts
 
+#generate address_id = 1
+INSERT INTO `address` SET
+	`line1` = '123 Any St.',
+	`city` = 'Chicago',
+	`state` = 'IL',
+	`country` = 'USA',
+	`postal_code` = 60626;
+
+#generate partner_id = 1 (lakeshore market)
 INSERT INTO `partner` SET
+	`address_id` = 1,
 	`name` = 'Lakeshore Market',
 	`contact_name` = 'Magliotyan', #Mag[gie]-[El]liot[t]-[Ray]yan
 	`tel` = 5551234567,
 	`email` = 'epost@luc.edu',
 	`password` = 'THIS NEEDS TO BE HASHED';
 
-
+#generate taxonomy id = 1 (uncategorized)
 INSERT INTO `taxonomy` SET
 	`name` = 'Uncategorized',
 	`slug` = 'uncategorized';
 
-
+#generate default status codes
 INSERT INTO `status` 
 	(`prefix`, `status_id`, `description`)
 	VALUES 
