@@ -1,3 +1,15 @@
+/* 
+CHANGES:
+
+* Added additional fields to CUSTOMER and ORDER
+* Removed the CART table (it had no use since it had no unique key)
+	* CART will likely still need to be an object in Java
+* Added additional fields to PARTNER
+* Added `city` to ADDRESS
+* Fixed semantic error in FK to STATUS (now using both fields and changed status_code to status_id and status_code is now the PRIMARY KEY name)
+
+*/
+
 # Create the DB
 CREATE DATABASE IF NOT EXISTS `lakeshore_market` 
   DEFAULT CHARACTER SET utf8
@@ -288,3 +300,5 @@ INSERT INTO `status`
 	('payment', 0, 'Unpaid'),
 	('payment', 1, 'Paid'),
 	('payment', 2, 'Refunded');
+
+
