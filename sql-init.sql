@@ -253,7 +253,7 @@ INSERT INTO `partner` SET
 	`name` = 'Lakeshore Market',
 	`contact_name` = 'Magliotyan', #Mag[gie]-[El]liot[t]-[Ray]yan
 	`tel` = 5551234567,
-	`email` = `epost@luc.edu`,
+	`email` = 'epost@luc.edu',
 	`password` = 'THIS NEEDS TO BE HASHED';
 
 
@@ -263,7 +263,7 @@ INSERT INTO `taxonomy` SET
 
 
 INSERT INTO `status` 
-	(`prefix`, `code`, `description`)
+	(`prefix`, `status_id`, `description`)
 	VALUES 
 	('order', 0, 'Cancelled'),
 	('order', 1, 'In Progress'),
