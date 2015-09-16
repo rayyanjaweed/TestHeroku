@@ -2,43 +2,50 @@ package com.online.lakeshoremarket.model.customer;
 
 public class AddressImpl implements Address{
 
-	private int unit;
-	private String street;
-	private String apt;
-	private String city;
+	private int addressID;
+	private String line1;
+	private String line2;
+	private String line3;
 	private String state;
+	private String country;
 	private String zip;
 	
 	
-	public int getUnit() {
-		return unit;
+	public int getAddressID() {
+		return addressID;
 	}
-	public void setUnit(int unit) {
-		this.unit = unit;
+	public void setAddressID(int addressID) {
+		this.addressID = addressID;
 	}
-	public String getStreet() {
-		return street;
+	public String getLine1() {
+		return line1;
 	}
-	public void setStreet(String street) {
-		this.street = street;
+	public void setLine1(String line1) {
+		this.line1 = line1;
 	}
-	public String getApt() {
-		return apt;
+	public String getLine2() {
+		return line2;
 	}
-	public void setApt(String apt) {
-		this.apt = apt;
+	public void setLine2(String line2) {
+		this.line2 = line2;
 	}
-	public String getCity() {
-		return city;
+	public String getLine3() {
+		return line3;
 	}
-	public void setCity(String city) {
-		this.city = city;
+	public void setLine3(String line3) {
+		this.line3 = line3;
 	}
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public String getCountry() {
+		return country;
+	}
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	public String getZip() {
 		return zip;

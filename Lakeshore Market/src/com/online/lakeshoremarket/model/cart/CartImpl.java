@@ -2,8 +2,16 @@ package com.online.lakeshoremarket.model.cart;
 
 public class CartImpl {
 
-	private String test;
-	private String test2;
-	private String test3;
-	private String test4;
+	private int customerId;
+
+	
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+	
+	
 }
