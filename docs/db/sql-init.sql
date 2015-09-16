@@ -65,7 +65,7 @@ CREATE TABLE `address` (
 	`address_id` int(8) NOT NULL AUTO_INCREMENT,
 	`line1` varchar(255) NOT NULL,
 	`line2` varchar(255) NULL,
-	`line3` varchar(255) NOT NULL,
+	`line3` varchar(255) NULL,
 	`city` varchar(255) NOT NULL,
 	`state` varchar(255) NOT NULL,
 	`country` varchar(255) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `customer` (
 	`customer_id` int(8) NOT NULL AUTO_INCREMENT,
 	`ship_address_id` int(8) NOT NULL,
 	`bill_address_id` int(8) NOT NULL,
-	`tel` int(14) NOT NULL,
+	`tel` varchar(14) NOT NULL,
 	`email` varchar(255) NOT NULL,
 	`name` tinytext NOT NULL,
 	`title` tinytext NOT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `partner` (
 	`address_id` int(8) NOT NULL,
 	`name` tinytext NOT NULL,
 	`contact_name` tinytext NOT NULL,
-	`tel` int(14) NOT NULL,
+	`tel` varchar(14) NOT NULL,
 	`email` varchar(255) NOT NULL,
 	`password` varchar(255) NOT NULL,
 
@@ -280,7 +280,7 @@ INSERT INTO `partner` SET
 	`address_id` = 1,
 	`name` = 'Lakeshore Market',
 	`contact_name` = 'Magliotyan', #Mag[gie]-[El]liot[t]-[Ray]yan
-	`tel` = 5551234567,
+	`tel` = '5551234567',
 	`email` = 'epost@luc.edu',
 	`password` = 'THIS NEEDS TO BE HASHED';
 
