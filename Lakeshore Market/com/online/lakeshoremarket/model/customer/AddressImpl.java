@@ -36,19 +36,11 @@ public class AddressImpl implements Address{
 	public void setLine3(String line3) {
 		this.line3 = line3;
 	}
-<<<<<<< HEAD
 	public String getCity() {
 		return city;
 	}
 	public void setCity(String city) {
 		this.city = city;
-=======
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
->>>>>>> 24e277620ed2883bb7d0da26a524460aee8a1b14
 	}
 	public String getCountry() {
 		return country;
@@ -56,15 +48,12 @@ public class AddressImpl implements Address{
 	public void setCountry(String country) {
 		this.country = country;
 	}
-<<<<<<< HEAD
 	public String getState() {
 		return state;
 	}
 	public void setState(String state) {
 		this.state = state;
 	}
-=======
->>>>>>> 24e277620ed2883bb7d0da26a524460aee8a1b14
 	public String getZip() {
 		return zip;
 	}

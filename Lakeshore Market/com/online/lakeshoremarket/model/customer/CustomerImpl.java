@@ -68,19 +68,12 @@ public class CustomerImpl implements Customer{
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-		//delete this comment @todo
 	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public long getPhone() {
-		return phone;
-	}
-	public void setPhone(long phone) {
-		this.phone = phone;
 	}
 	
 }

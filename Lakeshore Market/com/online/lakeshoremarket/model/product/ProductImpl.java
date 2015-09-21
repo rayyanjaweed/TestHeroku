@@ -6,9 +6,9 @@ public class ProductImpl implements Product{
 	private float cost;
 	private float price;
 	private int partnerID;
+	private int productID;
 	private int taxonomyID;
 	private int qoh;
-	private String productID;
 	private String productName;
 	private String description;
 	
@@ -37,6 +37,12 @@ public class ProductImpl implements Product{
 	public void setPartnerID(int partnerID) {
 		this.partnerID = partnerID;
 	}
+	public int getProductID() {
+		return productID;
+	}
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
 	public int getTaxonomyID() {
 		return taxonomyID;
 	}
@@ -49,12 +55,6 @@ public class ProductImpl implements Product{
 	public void setQoh(int qoh) {
 		this.qoh = qoh;
 	}
-	public String getProductID() {
-		return productID;
-	}
-	public void setProductID(String productID) {
-		this.productID = productID;
-	}
 	public String getProductName() {
 		return productName;
 	}
@@ -66,6 +66,17 @@ public class ProductImpl implements Product{
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public void displayProductDetails() {
+		System.out.println("Product id  = " + productID);
+		System.out.println("Partner id = " + partnerID);
+		System.out.println("Taxonomy id = " + taxonomyID);
+		System.out.println("Cost = " + cost);
+		System.out.println("Price = " + price);
+		System.out.println("Product Name = " + productName);
+		System.out.println("Description = " + description);
+		System.out.println("Quantity on hand = " + qoh);
+		System.out.println("Product status = " + (isActive ? "Active" : "Inactive"));
 	}
 	
 	

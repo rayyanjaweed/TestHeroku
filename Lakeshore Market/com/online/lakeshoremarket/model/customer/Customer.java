@@ -10,8 +10,6 @@ public interface Customer {
 	public void setCustomerId(int customerId);
 	public String getEmail();
 	public void setEmail(String email);
-	public long getPhone();
-	public void setPhone(long phone);
 	public String getFirstName();
 	public void setFirstName(String firstName);
 	public String getLastName();
