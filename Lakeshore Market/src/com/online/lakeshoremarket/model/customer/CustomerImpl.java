@@ -68,6 +68,7 @@ public class CustomerImpl implements Customer{
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
+		//delete this comment @todo
 	}
 	public String getTitle() {
 		return title;
