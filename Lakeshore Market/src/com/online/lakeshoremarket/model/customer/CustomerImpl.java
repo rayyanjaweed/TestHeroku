@@ -1,44 +1,44 @@
 package com.online.lakeshoremarket.model.customer;
 
-import com.online.lakeshoremarket.model.cart.Cart;
 
 
 public class CustomerImpl implements Customer{
 
-	private Address billingAddress;
-	private Address shippingAddress;
-	private Cart shoppingCart;
+	private int billingAddress;
+	private int shippingAddress;
 	private int customerId;
-	private long phone;
+	private String email;
 	private String firstName;
 	private String lastName;
+	private String password;
 	private String paypalCustID;
+	private String phone;
 	private String title;
 	
 	
-	public Address getBillingAddress() {
+	public int getBillingAddress() {
 		return billingAddress;
 	}
-	public void setBillingAddress(Address billingAddress) {
+	public void setBillingAddress(int billingAddress) {
 		this.billingAddress = billingAddress;
 	}
-	public Address getShippingAddress() {
+	public int getShippingAddress() {
 		return shippingAddress;
 	}
-	public void setShippingAddress(Address shippingAddress) {
+	public void setShippingAddress(int shippingAddress) {
 		this.shippingAddress = shippingAddress;
-	}
-	public Cart getShoppingCart() {
-		return shoppingCart;
-	}
-	public void setShoppingCart(Cart shoppingCart) {
-		this.shoppingCart = shoppingCart;
 	}
 	public int getCustomerId() {
 		return customerId;
 	}
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -52,23 +52,29 @@ public class CustomerImpl implements Customer{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	public String getPaypalCustID() {
 		return paypalCustID;
 	}
 	public void setPaypalCustID(String paypalCustID) {
 		this.paypalCustID = paypalCustID;
 	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public long getPhone() {
-		return phone;
-	}
-	public void setPhone(long phone) {
-		this.phone = phone;
 	}
 		
 	

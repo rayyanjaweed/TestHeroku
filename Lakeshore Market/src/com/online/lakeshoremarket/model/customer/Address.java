@@ -10,10 +10,12 @@ public interface Address {
 	public void setLine2(String line2);
 	public String getLine3();
 	public void setLine3(String line3);
-	public String getState();
-	public void setState(String state);
+	public String getCity();
+	public void setCity(String city);
 	public String getCountry();
 	public void setCountry(String country);
+	public String getState();
+	public void setState(String state);
 	public String getZip();
 	public void setZip(String zip);
 	

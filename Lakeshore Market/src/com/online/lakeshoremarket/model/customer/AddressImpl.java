@@ -6,8 +6,9 @@ public class AddressImpl implements Address{
 	private String line1;
 	private String line2;
 	private String line3;
-	private String state;
+	private String city;
 	private String country;
+	private String state;
 	private String zip;
 	
 	
@@ -35,17 +36,23 @@ public class AddressImpl implements Address{
 	public void setLine3(String line3) {
 		this.line3 = line3;
 	}
-	public String getState() {
-		return state;
+	public String getCity() {
+		return city;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public String getCountry() {
 		return country;
 	}
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
 	}
 	public String getZip() {
 		return zip;

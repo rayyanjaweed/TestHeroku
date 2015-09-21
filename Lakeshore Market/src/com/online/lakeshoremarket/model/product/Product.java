@@ -10,16 +10,17 @@ public interface Product {
 	public void setPrice(float price);
 	public int getPartnerID();
 	public void setPartnerID(int partnerID);
+	public int getProductID();
+	public void setProductID(int productID);
 	public int getTaxonomyID();
 	public void setTaxonomyID(int taxonomyID);
 	public int getQoh();
 	public void setQoh(int qoh);
-	public String getProductID();
-	public void setProductID(String productID);
 	public String getProductName();
 	public void setProductName(String productName);
 	public String getDescription();
 	public void setDescription(String description);
+	public void displayProductDetails();
 	
 	
 }
