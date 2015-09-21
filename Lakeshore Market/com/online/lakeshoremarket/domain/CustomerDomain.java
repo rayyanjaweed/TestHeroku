@@ -31,7 +31,7 @@ public class CustomerDomain {
 
 	public void deleteCustomer(int custID) {
 		custDao = new CustomerDAO();
-		custDao.deleteCustomerAddress();
+//		custDao.deleteCustomerAddress();
 		custDao.deleteCustomer(custID);
 	}
 

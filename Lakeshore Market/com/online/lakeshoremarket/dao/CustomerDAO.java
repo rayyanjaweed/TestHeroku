@@ -89,7 +89,7 @@ public class CustomerDAO {
 	public void deleteCustomer(int custID) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
-		try{
+		/*try{
 			String deleteStmt = "INSERT INTO customer "
 											+ "(ship_address_id, bill_address_id, tel, email, name, title, password, paypal_cust_id) "
 								+ "VALUES "
@@ -114,8 +114,8 @@ public class CustomerDAO {
 			} catch (Exception e) {
 				System.err.println("CustomerDAO.addCustomer: Threw an Exception inserting a new customer in table.");
 			}
-		}
-		return rowsUpdated;
+		}*/
+//		return rowsUpdated;
 		
 	}
 }
