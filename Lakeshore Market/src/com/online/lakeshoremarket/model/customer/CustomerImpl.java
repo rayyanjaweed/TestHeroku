@@ -1,7 +1,5 @@
 package com.online.lakeshoremarket.model.customer;
 
-
-
 public class CustomerImpl implements Customer{
 
 	private int billingAddress;
@@ -28,6 +26,7 @@ public class CustomerImpl implements Customer{
 	public void setShippingAddress(int shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
+
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -76,6 +75,11 @@ public class CustomerImpl implements Customer{
 	public void setTitle(String title) {
 		this.title = title;
 	}
-		
+	public long getPhone() {
+		return phone;
+	}
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
 	
 }

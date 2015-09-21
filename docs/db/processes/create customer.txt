@@ -1,0 +1,5 @@
+PROCESS: Create Customer
+	1) Collect telephone, email, name, title, and password
+	2) Collect shipping address, billing address
+	3) Create ADDRESS (billing, shipping)
+	4) Create CUSTOMER (above entities)

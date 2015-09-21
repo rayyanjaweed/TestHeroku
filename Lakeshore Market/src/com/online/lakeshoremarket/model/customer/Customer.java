@@ -1,6 +1,5 @@
 package com.online.lakeshoremarket.model.customer;
 
-
 public interface Customer {
 	
 	public int getBillingAddress();
@@ -11,6 +10,8 @@ public interface Customer {
 	public void setCustomerId(int customerId);
 	public String getEmail();
 	public void setEmail(String email);
+	public long getPhone();
+	public void setPhone(long phone);
 	public String getFirstName();
 	public void setFirstName(String firstName);
 	public String getLastName();
@@ -23,6 +24,5 @@ public interface Customer {
 	public void setPhone(String phone);
 	public String getTitle();
 	public void setTitle(String title);
-	
 	
 }
