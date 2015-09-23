@@ -1,4 +1,5 @@
 Lakeshore Market/bin/
 Lakeshore Market/.classpath
-.metadata
+#.metadata
+#!.metadata/.plugins/org.eclipse.e4.workbench/workbench.xmi
 .DS_Store
