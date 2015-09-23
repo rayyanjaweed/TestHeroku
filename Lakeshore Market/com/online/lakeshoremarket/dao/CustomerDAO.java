@@ -19,18 +19,19 @@ public class CustomerDAO {
 		int rowsUpdated = 0;
 		try{
 			String insertStmt = "INSERT INTO customer "
-											+ "(ship_address_id, bill_address_id, tel, email, name, title, password, paypal_cust_id) "
+											+ "(ship_address_id, bill_address_id, tel, email, first_name, last_name, title, password, paypal_cust_id) "
 								+ "VALUES "
-											+ "(?,?,?,?,?,?,?,?)";
+											+ "(?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(insertStmt);
 			pstmt.setInt(1, cust.getShippingAddress());
 			pstmt.setInt(2, cust.getBillingAddress());
 			pstmt.setString(3, cust.getPhone());
 			pstmt.setString(4, cust.getEmail());
 			pstmt.setString(5, cust.getFirstName());
-			pstmt.setString(6, cust.getTitle());
-			pstmt.setString(7, cust.getPassword());
-			pstmt.setString(8, cust.getPaypalCustID());
+			pstmt.setString(6, cust.getLastName());
+			pstmt.setString(7, cust.getTitle());
+			pstmt.setString(8, cust.getPassword());
+			pstmt.setString(9, cust.getPaypalCustID());
 			rowsUpdated = pstmt.executeUpdate();
 		}catch(SQLException sqe){
 			System.err.println("CustomerDAO.addCustomer: Threw a SQLException inserting a new customer in table.");
@@ -87,7 +88,7 @@ public class CustomerDAO {
 	}
 
 	public void deleteCustomer(int custID) {
-		conn = DatabaseConnection.getSqlConnection();
+		/*conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
 		try{
 			String deleteStmt = "INSERT INTO customer "
@@ -114,7 +115,7 @@ public class CustomerDAO {
 			} catch (Exception e) {
 				System.err.println("CustomerDAO.addCustomer: Threw an Exception inserting a new customer in table.");
 			}
-		}
+		}*/
 //		return rowsUpdated;
 		
 	}

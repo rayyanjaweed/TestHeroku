@@ -33,6 +33,7 @@ public class TestCustomerEntry {
 		cust.setPhone("3129188888");
 		cust.setEmail("rayyanjaweed@google.com");
 		cust.setFirstName("Rayyandinho");
+		cust.setLastName("Jaweed");
 		cust.setTitle("Mr.");
 		cust.setPassword("password12345");
 		cust.setPaypalCustID("paypalID1234");
