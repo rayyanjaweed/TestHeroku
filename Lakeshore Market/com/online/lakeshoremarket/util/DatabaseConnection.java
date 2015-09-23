@@ -14,7 +14,7 @@ public class DatabaseConnection {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lakeshore_market?" + "user=root&password=tiger");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/lakeshore_market?" + "user=root&password=root");
 		} catch (SQLException e) {
 			System.out.println("SQLException");
 		} catch (ClassNotFoundException e) {
