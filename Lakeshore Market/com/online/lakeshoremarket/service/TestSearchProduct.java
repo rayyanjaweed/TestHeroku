@@ -8,10 +8,14 @@ public class TestSearchProduct {
 	public static void main(String[] args) {
 
 		Product prod = null;
-		String prodName = "PS4 Controller";
+		String prodName = "Oliver Twist";
 		ProductDomain prodDomain = new ProductDomain();
 		prod = prodDomain.searchProductByName(prodName);
-		prod.displayProductDetails();
+		if(0 == prod.getProductID()){
+			System.out.println("Product not found");
+		}else{
+			prod.displayProductDetails();
+		}
 	}
 
 }

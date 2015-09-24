@@ -32,7 +32,7 @@ public class TestCustomerEntry {
 		
 		cust.setPhone("3129188888");
 		cust.setEmail("rayyanjaweed@google.com");
-		cust.setFirstName("Rayyandinho");
+		cust.setFirstName("Rayyan");
 		cust.setLastName("Jaweed");
 		cust.setTitle("Mr.");
 		cust.setPassword("password12345");

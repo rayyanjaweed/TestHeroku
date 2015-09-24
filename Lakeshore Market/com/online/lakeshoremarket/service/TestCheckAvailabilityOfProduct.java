@@ -7,9 +7,9 @@ public class TestCheckAvailabilityOfProduct {
 	public static void main(String[] args) {
 
 		Boolean isProductAvailable = false;
-		String prodName = "Oliver Twist";
+		int prodID = 12;
 		ProductDomain prodDomain = new ProductDomain();
-		isProductAvailable = prodDomain.checkProductAvailability(prodName);
+		isProductAvailable = prodDomain.checkProductAvailabilityByID(prodID);
 		System.out.println(isProductAvailable ? "Product is available" : "Product is unavailable");
 	}
 

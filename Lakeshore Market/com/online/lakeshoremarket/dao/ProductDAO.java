@@ -130,7 +130,7 @@ public class ProductDAO {
 			while(resultSet.next()){
 				qoh = resultSet.getInt("qoh");
 			}
-			isProductAvailable = (qoh >= 0 ) ?  true : false ;
+			isProductAvailable = (qoh > 0 ) ?  true : false ;
 		}catch(SQLException sqe){
 			System.err.println("ProductDAO.getProductAvailability: Threw a SQLException while checking product availability.");
   	      	System.err.println(sqe.getMessage());
