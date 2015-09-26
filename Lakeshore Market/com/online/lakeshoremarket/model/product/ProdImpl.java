@@ -79,3 +79,6 @@ public class ProdImpl implements Product {
 		System.out.println("Product status = " + (isActive ? "Active" : "Inactive"));
 	}
 }
+
+
+//TODO Remove either this or the ProductImpl file.
