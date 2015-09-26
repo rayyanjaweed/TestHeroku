@@ -118,8 +118,8 @@ public class ProductDAO {
 		return rowsUpdated;
 	}
 
-	public Boolean getProductAvailability(String prodName) {
-		Boolean isProductAvailable = false;
+	public boolean getProductAvailability(String prodName) {
+		boolean isProductAvailable = false;
 		conn = DatabaseConnection.getSqlConnection();
 		int qoh = 0;
 		try{
@@ -145,8 +145,8 @@ public class ProductDAO {
 		return isProductAvailable;
 	}
 
-	public Boolean getProductAvailabilityByID(int prodID) {
-		Boolean isProductAvailable = false;
+	public boolean getProductAvailabilityByID(int prodID) {
+		boolean isProductAvailable = false;
 		conn = DatabaseConnection.getSqlConnection();
 		int qoh = 0;
 		try{
@@ -170,5 +170,51 @@ public class ProductDAO {
 			}
 		}
 		return isProductAvailable;
+	}
+
+	public int getProductPrice(int prodID) {
+		int price = 0;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String getQuery = "SELECT price FROM product WHERE product_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, prodID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				price = resultSet.getInt("price");
+			}
+		}catch(SQLException sqe){
+			System.err.println("ProductDAO.getProductPrice: Threw a SQLException while getting product price.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("ProductDAO.getProductPrice: Threw an Exception while getting product price.");
+			}
+		}
+		return price;
+	}
+
+	public void decreaseQoh(int prodID, int quantity) {
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String updateQuery = "UPDATE product SET qoh = qoh - ?  WHERE product_id = ?";
+			pstmt = conn.prepareStatement(updateQuery);
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, prodID);
+			pstmt.executeUpdate();
+		}catch(SQLException sqe){
+			System.err.println("ProductDAO.decreaseQoh: Threw a SQLException while decreasing product quantity on hand.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("ProductDAO.decreaseQoh: Threw an Exception while decreasing product quantity on hand.");
+			}
+		}
 	}
 }

@@ -30,18 +30,30 @@ public class ProductDomain {
 		return rowsUpdated;
 	}
 
-	public Boolean checkProductAvailability(String prodName) {
-		Boolean isProductAvailable = false;
+	public boolean checkProductAvailability(String prodName) {
+		boolean isProductAvailable = false;
 		pDao = new ProductDAO();
 		isProductAvailable = pDao.getProductAvailability(prodName);
 		return isProductAvailable;
 	}
 	
-	public Boolean checkProductAvailabilityByID(int prodID) {
-		Boolean isProductAvailable = false;
+	public boolean checkProductAvailabilityByID(int prodID) {
+		boolean isProductAvailable = false;
 		pDao = new ProductDAO();
 		isProductAvailable = pDao.getProductAvailabilityByID(prodID);
 		return isProductAvailable;
+	}
+
+	public int getProductPrice(int prodID) {
+		int price = 0;
+		pDao = new ProductDAO();
+		price = pDao.getProductPrice(prodID);
+		return price;
+	}
+
+	public void decreaseQoh(int prodID, int quantity) {
+		pDao = new ProductDAO();
+		pDao.decreaseQoh(prodID, quantity);
 	}
 
 	
