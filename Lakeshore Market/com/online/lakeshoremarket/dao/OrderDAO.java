@@ -2,6 +2,7 @@ package com.online.lakeshoremarket.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.online.lakeshoremarket.model.order.Order;
@@ -88,6 +89,31 @@ public class OrderDAO {
 			}
 		}
 		return (rowsUpdated == 0)? false : true;
+	}
+
+	public int getOrderStatus(int orderID) {
+		int orderStatus = -1;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String getQuery = "SELECT status_id FROM `order` WHERE order_id = ?";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, orderID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				orderStatus = resultSet.getInt("status_id");
+			}
+		}catch(SQLException sqe){
+			System.err.println("OrderDAO.getOrderStatus: Threw a SQLException while getting order status ID for the orderID = "+orderID);
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("OrderDAO.getOrderStatus: Threw an Exception while getting order status ID for the orderID = "+orderID);
+			}
+		}
+		return orderStatus;
 	}
 
 }

@@ -22,5 +22,11 @@ public class OrderDomain {
 		isOrderFulfilled = orderDao.fulfillOrder(orderID);
 		return isOrderFulfilled;
 	}
+	public int getOrderStatus(int orderID) {
+		int orderStatus = -1;
+		orderDao = new OrderDAO();
+		orderStatus = orderDao.getOrderStatus(orderID);
+		return orderStatus;
+	}
 
 }

@@ -35,21 +35,6 @@ public class CustomerDomain {
 		int billingAddressID = 0;
 		int shippingAddressID = 0;
 		int funcReturn = 0;
-		
-		
-		
-		/*billingAddressID = getCustomerBillingAddress(custID);
-		shippingAddressID = getCustomerShippingAddress(custID);
-		if(0 != billingAddressID && 0!= shippingAddressID){
-			int billingAddressDeleted = 0;
-			int shippingAddressDeleted = 0;
-			billingAddressDeleted = custDao.deleteCustomerAddress(billingAddressID);
-			shippingAddressDeleted = custDao.deleteCustomerAddress(shippingAddressID);
-			if(0 != billingAddressDeleted && 0 != shippingAddressDeleted){
-				funcReturn = custDao.deleteCustomer(custID);
-			}
-		}*/
-		
 		billingAddressID = getCustomerBillingAddress(custID);
 		shippingAddressID = getCustomerShippingAddress(custID);
 		if(0 != billingAddressID && 0 != shippingAddressID){
@@ -64,10 +49,6 @@ public class CustomerDomain {
 				}
 			}
 		}
-		
-		
-		
-//		isCustomerDeleted = (funcReturn == 0) ? false : true;
 		return isCustomerDeleted;
 	}
 	
