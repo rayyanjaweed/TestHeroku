@@ -74,4 +74,11 @@ public class CustomerDomain {
 		return shippingAddressID;
 	}
 
+	public boolean getStatus(int custID) {
+		boolean isCustomerActive = false;
+		custDao = new CustomerDAO();
+		isCustomerActive = custDao.getStatus(custID);
+		return isCustomerActive;
+	}
+
 }

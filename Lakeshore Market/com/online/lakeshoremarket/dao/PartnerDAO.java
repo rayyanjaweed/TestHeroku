@@ -111,4 +111,29 @@ public class PartnerDAO {
 		return isPartnerDeleted;
 	}
 
+	public boolean getStatus(int partnerID) {
+		conn = DatabaseConnection.getSqlConnection();
+		boolean isPartnerActive = false;
+		try{
+			String getQuery = "SELECT active FROM partner WHERE partner_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, partnerID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				isPartnerActive = resultSet.getBoolean("active");
+			}
+		}catch(SQLException sqe){
+			System.err.println("PartnerDAO.getStatus: Threw a SQLException while getting partner active status.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("PartnerDAO.getStatus: Threw a Exception while getting partner active status.");
+			}
+		}
+		return isPartnerActive;
+	}
+
 }

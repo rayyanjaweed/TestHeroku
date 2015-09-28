@@ -185,4 +185,29 @@ public class CustomerDAO {
 		}
 		return shippingAddressID;
 	}
+
+	public boolean getStatus(int custID) {
+		conn = DatabaseConnection.getSqlConnection();
+		boolean isCustomerActive = false;
+		try{
+			String getQuery = "SELECT active FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, custID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				isCustomerActive = resultSet.getBoolean("active");
+			}
+		}catch(SQLException sqe){
+			System.err.println("CustomerDAO.getStatus: Threw a SQLException while getting customer active status.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("CustomerDAO.getStatus: Threw a Exception while getting customer active status.");
+			}
+		}
+		return isCustomerActive;
+	}
 }

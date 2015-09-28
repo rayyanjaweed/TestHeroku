@@ -1,5 +1,6 @@
 package com.online.lakeshoremarket.domain;
 
+import com.online.lakeshoremarket.dao.CustomerDAO;
 import com.online.lakeshoremarket.dao.PartnerDAO;
 import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
@@ -32,5 +33,12 @@ public class PartnerDomain {
 		partnerDao = new PartnerDAO();
 		isPartnerDeleted = partnerDao.deletePartner(partnerID);
 		return isPartnerDeleted;
+	}
+
+	public boolean getStatus(int partnerID) {
+		boolean isPartnerActive = false;
+		partnerDao = new PartnerDAO();
+		isPartnerActive = partnerDao.getStatus(partnerID);
+		return isPartnerActive;
 	}
 }
