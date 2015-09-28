@@ -5,10 +5,20 @@ import com.online.lakeshoremarket.dao.PartnerDAO;
 import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
 
+/**
+ * Represents the partner domain business logic
+ *
+ */
 public class PartnerDomain {
 
 	PartnerDAO partnerDao = null;
 	
+	/**
+	 * adds a partner to the db
+	 * @param partner 	the partner to add
+	 * @param address	the address to set for the partner
+	 * @return			number of rows updated
+	 */
 	public int addPartner(Partner partner, Address address) {
 		int rowsUpdated = 0;
 		int addressID = addAddress(address);
@@ -21,6 +31,11 @@ public class PartnerDomain {
 		return rowsUpdated;
 	}
 	
+	/**
+	 * adds an address to the database
+	 * @param address	the address to insert
+	 * @return			address ID or 0 on failure
+	 */
 	public int addAddress(Address address){
 		int addressID = 0;
 		partnerDao = new PartnerDAO();
@@ -28,6 +43,11 @@ public class PartnerDomain {
 		return addressID;
 	}
 
+	/**
+	 * marks a partner as inactive
+	 * @param partnerID 	the partner ID to update
+	 * @return				true on success, else false
+	 */
 	public boolean deletePartner(int partnerID) {
 		boolean isPartnerDeleted = false ;
 		partnerDao = new PartnerDAO();
@@ -35,6 +55,11 @@ public class PartnerDomain {
 		return isPartnerDeleted;
 	}
 
+	/**
+	 * determines if a partner is active or not
+	 * @param partnerID 	the partner to look up
+	 * @return				true if active, else false
+	 */
 	public boolean getStatus(int partnerID) {
 		boolean isPartnerActive = false;
 		partnerDao = new PartnerDAO();
