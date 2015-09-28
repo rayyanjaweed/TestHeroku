@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import com.online.lakeshoremarket.dao.ProductDAO;
 import com.online.lakeshoremarket.model.product.Product;
 
+/**
+ * Represents the customer domain business logic
+ *
+ */
 public class ProductDomain {
 
 	ProductDAO pDao = null;

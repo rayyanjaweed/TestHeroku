@@ -9,11 +9,19 @@ import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.customer.Customer;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * Represents the data access object for the customer
+ * used for interacting with the database 
+ */
 public class CustomerDAO {
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
+	/**
+	 * @param cust 	the customer object to add
+	 * @return 		number of rows updated
+	 */
 	public int addCustomer(Customer cust){
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
@@ -47,6 +55,10 @@ public class CustomerDAO {
 		return rowsUpdated;
 	}
 
+	/**
+	 * @param address 	the customer address object to insert
+	 * @return 			address ID
+	 */
 	public int addAddress(Address address) {
 		conn = DatabaseConnection.getSqlConnection();
 		int addressID = 0;
@@ -87,6 +99,11 @@ public class CustomerDAO {
 		return addressID;
 	}
 
+	/**
+	 * attempts a SOFT delete of a customer from the database (by marking it as inactive)
+	 * @param custID 	the customer ID
+	 * @return 			1 for success, 0 on failure or no rows affected
+	 */
 	public boolean deleteCustomer(int custID) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
@@ -114,6 +131,11 @@ public class CustomerDAO {
 		return (rowsUpdated == 1) ? true : false;
 	}
 
+	/**
+	 * deletes a customer address from the database
+	 * @param addressID 	the address record ID to delete
+	 * @return 				number of rows affected
+	 */
 	public int deleteCustomerAddress(int addressID) {
 		int rowsUpdated = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -136,6 +158,11 @@ public class CustomerDAO {
 		return rowsUpdated;
 	}
 
+	/**
+	 * returns an address ID for the customer specified
+	 * @param custID 		the customer ID to lookup billing address
+	 * @return				billing address ID
+	 */
 	public int getCustomerBillingAddress(int custID) {
 		int billingAddressID = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -161,6 +188,11 @@ public class CustomerDAO {
 		return billingAddressID;
 	}
 
+	/**
+	 * Looks up a customer's shipping address ID
+	 * @param custID	the customer ID to look up the address for
+	 * @return 			the customer's shipping address ID
+	 */
 	public int getCustomerShippingAddress(int custID) {
 		int shippingAddressID = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -186,6 +218,11 @@ public class CustomerDAO {
 		return shippingAddressID;
 	}
 
+	/**
+	 * determines if a customer is active or not (deleted or not)
+	 * @param custID 	the customer ID to lookup
+	 * @return			true for active, false for deleted/inactive	
+	 */
 	public boolean getStatus(int custID) {
 		conn = DatabaseConnection.getSqlConnection();
 		boolean isCustomerActive = false;

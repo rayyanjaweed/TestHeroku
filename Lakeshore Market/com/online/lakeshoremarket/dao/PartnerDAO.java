@@ -9,11 +9,20 @@ import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * Represents the partner database access object
+ * used to working with the database
+ */
 public class PartnerDAO {
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 
+	/**
+	 * adds a partner to the database
+	 * @param partner 		the partner object to add into the db
+	 * @return 				number of rows inserted
+	 */
 	public int addPartner(Partner partner) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
@@ -45,6 +54,11 @@ public class PartnerDAO {
 		return rowsUpdated;
 	}
 
+	/**
+	 * adds an address to the database for the partner
+	 * @param address 		address to insert
+	 * @return   			address ID of the new address
+	 */
 	public int addAddress(Address address) {
 		conn = DatabaseConnection.getSqlConnection();
 		int addressID = 0;
@@ -85,6 +99,11 @@ public class PartnerDAO {
 		return addressID;
 	}
 
+	/**
+	 * SOFT delete a partner from the database (mark the partner inactive)
+	 * @param partnerID 		the partner to update
+	 * @return					number of rows affected
+	 */
 	public boolean deletePartner(int partnerID) {
 		int rowsUpdated = 0;
 		boolean isPartnerDeleted = false;
@@ -111,6 +130,11 @@ public class PartnerDAO {
 		return isPartnerDeleted;
 	}
 
+	/**
+	 * Determines if a partner is active or not (deleted)
+	 * @param partnerID 		the partner ID to look up
+	 * @return 					true for active, else false
+	 */
 	public boolean getStatus(int partnerID) {
 		conn = DatabaseConnection.getSqlConnection();
 		boolean isPartnerActive = false;

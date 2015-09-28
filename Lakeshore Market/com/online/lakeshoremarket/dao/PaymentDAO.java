@@ -10,11 +10,21 @@ import com.online.lakeshoremarket.model.payment.Payment;
 import com.online.lakeshoremarket.util.Constant;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * represents the payment database access object
+ * interacts with the database
+ *
+ */
 public class PaymentDAO {
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 
+	/**
+	 * creates a payment in the database
+	 * @param custPayment 		the payment object to create
+	 * @return					payment ID
+	 */
 	public int createPayment(Payment custPayment) {
 		int paymentID = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -53,6 +63,11 @@ public class PaymentDAO {
 		return paymentID;
 	}
 
+	/**
+	 * marks a payment status as refunded
+	 * @param paymentStatusID		the payment ID to update
+	 * @param date 					the date/time the update occurred
+	 */
 	public void updatePaymentStatusForRefund(int paymentStatusID, Timestamp date) {
 		conn = DatabaseConnection.getSqlConnection();
 		try{

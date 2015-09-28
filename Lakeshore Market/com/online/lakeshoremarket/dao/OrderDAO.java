@@ -11,12 +11,22 @@ import com.online.lakeshoremarket.model.order.OrderImpl;
 import com.online.lakeshoremarket.util.Constant;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * Represents the order database access object
+ * used for interacting with the database
+ *
+ */
 public class OrderDAO {
 
 	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
+	/**
+	 * creates an order in the database
+	 * @param custOrder 	the order to create
+	 * @return void
+	 */
 	public void createOrder(Order custOrder) {
 		conn = DatabaseConnection.getSqlConnection();
 		try{
@@ -46,6 +56,12 @@ public class OrderDAO {
 		}
 	}
 
+	/**
+	 * Marks an order as shipped and updates the order with the tracking number
+	 * @param orderID 			the order ID to update
+	 * @param trackingNumber  	the tracking number to save to order
+	 * @return  				true on saved changes false otherwise
+	 */
 	public boolean shipOrder(int orderID, String trackingNumber) {
 		int rowsUpdated = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -70,6 +86,11 @@ public class OrderDAO {
 		return (rowsUpdated == 0)? false : true;
 	}
 
+	/**
+	 * updates an order to mark as delivered
+	 * @param orderID 		the ID of the order to mark as delivered
+	 * @return 				true on changes saved else false
+	 */
 	public boolean fulfillOrder(int orderID) {
 		int rowsUpdated = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -93,6 +114,11 @@ public class OrderDAO {
 		return (rowsUpdated == 0)? false : true;
 	}
 
+	/**
+	 * returns the status of an order 
+	 * @param orderID		the order ID to look up
+	 * @return				-1 on error, 0+ for success (see constants class to match)
+	 */
 	public int getOrderStatus(int orderID) {
 		int orderStatus = -1;
 		conn = DatabaseConnection.getSqlConnection();
@@ -118,6 +144,11 @@ public class OrderDAO {
 		return orderStatus;
 	}
 
+	/**
+	 * builds an order object by looking up the details in the database
+	 * @param orderID 		the order ID to lookup
+	 * @return				the order object
+	 */
 	public Order getOrderDetails(int orderID) {
 		Order custOrder = null;
 		conn = DatabaseConnection.getSqlConnection();
@@ -148,6 +179,12 @@ public class OrderDAO {
 		return custOrder;
 	}
 
+	/**
+	 * sets the order status to refunded 
+	 * @param orderID 		the order ID to update
+	 * @param date 			the date/time the change occurred
+	 * @return void 
+	 */
 	public void updateOrderStatusForRefund(int orderID, Timestamp date) {
 		conn = DatabaseConnection.getSqlConnection();
 		try{
