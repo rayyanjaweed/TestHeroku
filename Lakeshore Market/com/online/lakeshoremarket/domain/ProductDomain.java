@@ -56,5 +56,12 @@ public class ProductDomain {
 		pDao.decreaseQoh(prodID, quantity);
 	}
 
+	public boolean increaseQoh(int prodID,int quantity) {
+		boolean isQuantityIncreased = false;
+		pDao = new ProductDAO();
+		isQuantityIncreased = pDao.increaseQoh(prodID, quantity);
+		return isQuantityIncreased;
+	}
+
 	
 }

@@ -217,4 +217,27 @@ public class ProductDAO {
 			}
 		}
 	}
+
+	public boolean increaseQoh(int prodID, int quantity) {
+		int rowsUpdated = 0;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String updateQuery = "UPDATE product SET qoh = qoh + ?  WHERE product_id = ?";
+			pstmt = conn.prepareStatement(updateQuery);
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, prodID);
+			rowsUpdated = pstmt.executeUpdate();
+		}catch(SQLException sqe){
+			System.err.println("ProductDAO.increaseQoh: Threw a SQLException while increasing product quantity on hand.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("ProductDAO.increaseQoh: Threw an Exception while increasing product quantity on hand.");
+			}
+		}
+		return (rowsUpdated == 1) ? true : false;
+	}
 }

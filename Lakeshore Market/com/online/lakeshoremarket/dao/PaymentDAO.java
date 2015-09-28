@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.online.lakeshoremarket.model.payment.Payment;
+import com.online.lakeshoremarket.util.Constant;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
 public class PaymentDAO {
@@ -49,6 +51,28 @@ public class PaymentDAO {
 			}
 		}
 		return paymentID;
+	}
+
+	public void updatePaymentStatusForRefund(int paymentStatusID, Timestamp date) {
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String updateStmt = "UPDATE payment SET status_id = ?, date_refunded = ? WHERE payment_id = ?";
+			pstmt = conn.prepareStatement(updateStmt);
+			pstmt.setInt(1, Constant.RETURNED);
+			pstmt.setTimestamp(2, date);
+			pstmt.setInt(3, paymentStatusID);
+			pstmt.executeUpdate();
+		}catch(SQLException sqe){
+			System.err.println("PaymentDAO.updatePaymentStatusForRefund: Threw a SQLException updating payment status and date refunded in the payment table.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("PaymentDAO.updatePaymentStatusForRefund: Threw an Exception updating payment status and date refunded in the payment table.");
+			}
+		}
 	}
 
 }

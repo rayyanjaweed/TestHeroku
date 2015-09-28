@@ -55,4 +55,17 @@ public class PaymentDomain {
 		//It will return the Method Transaction ID
 		return methodTransactionID;
 	}
+
+	public void refundCustomerMoney(int paymentID) {
+		/*This method is implemented partially. This method will fetch payment details and then 
+		return money through the PAYPAL. Finally it will update the payment status*/
+		updatePaymentStatus(paymentID);
+	}
+
+	private void updatePaymentStatus(int paymentID) {
+		Date systemDate = new Date();
+		Timestamp date = new Timestamp(systemDate.getTime());
+		pDao = new PaymentDAO();
+		pDao.updatePaymentStatusForRefund(paymentID,date);
+	}
 }

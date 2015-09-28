@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import com.online.lakeshoremarket.model.order.Order;
+import com.online.lakeshoremarket.model.order.OrderImpl;
 import com.online.lakeshoremarket.util.Constant;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
@@ -78,14 +80,14 @@ public class OrderDAO {
 			pstmt.setInt(2, orderID);
 			rowsUpdated = pstmt.executeUpdate();
 		}catch(SQLException sqe){
-			System.err.println("OrderDAO.fulfillOrder: Threw a SQLException updating tracking number and status in the order table.");
+			System.err.println("OrderDAO.fulfillOrder: Threw a SQLException updating status to 'DELIVERED' in the order table.");
   	      	System.err.println(sqe.getMessage());
 		} finally {
 			try {
 				pstmt.close();
 				conn.close();
 			} catch (Exception e) {
-				System.err.println("OrderDAO.fulfillOrder: Threw an Exception updating tracking number and status in the order table.");
+				System.err.println("OrderDAO.fulfillOrder: Threw an Exception updating status to 'DELIVERED' in the order table.");
 			}
 		}
 		return (rowsUpdated == 0)? false : true;
@@ -114,6 +116,58 @@ public class OrderDAO {
 			}
 		}
 		return orderStatus;
+	}
+
+	public Order getOrderDetails(int orderID) {
+		Order custOrder = null;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			custOrder = new OrderImpl();
+			String getQuery = "SELECT * FROM `order` WHERE order_id = ?";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, orderID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				custOrder.setCustomerID(resultSet.getInt("customer_id"));
+				custOrder.setPaymentID(resultSet.getInt("payment_id"));
+				custOrder.setOrderStatusCode(resultSet.getInt("status_id"));
+				custOrder.setDatePurchased(resultSet.getTimestamp("date_purchased"));
+				custOrder.setTrackingNumber(resultSet.getString("tracking_number"));
+			}
+		}catch(SQLException sqe){
+			System.err.println("OrderDAO.getOrderDetails: Threw a SQLException while getting order details for the orderID = "+orderID);
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("OrderDAO.getOrderDetails: Threw an Exception while getting order details for the orderID = "+orderID);
+			}
+		}
+		return custOrder;
+	}
+
+	public void updateOrderStatusForRefund(int orderID, Timestamp date) {
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String updateStmt = "UPDATE `order` SET status_id = ?, date_refunded = ? WHERE order_id = ?";
+			pstmt = conn.prepareStatement(updateStmt);
+			pstmt.setInt(1, Constant.CANCELLED);
+			pstmt.setTimestamp(2, date);
+			pstmt.setInt(3, orderID);
+			pstmt.executeUpdate();
+		}catch(SQLException sqe){
+			System.err.println("OrderDAO.updateOrderStatusForRefund: Threw a SQLException updating order status and date refunded in the order table.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("OrderDAO.updateOrderStatusForRefund: Threw an Exception updating order status and date refunded in the order table.");
+			}
+		}
 	}
 
 }
