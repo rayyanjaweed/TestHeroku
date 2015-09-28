@@ -10,6 +10,9 @@ CHANGES:
 * Added `city` to ADDRESS
 * Fixed semantic error in FK to STATUS (now using both fields and changed status_code to status_id and status_code is now the PRIMARY KEY name)
 
+ADDITIONAL CHANGES:
+* Added product ID and quantity to the order table.
+
 */
 
 DROP DATABASE `lakeshore_market`;
@@ -184,6 +187,8 @@ CREATE TABLE `order` (
 	`order_id` int(8) NOT NULL AUTO_INCREMENT,
 	`customer_id` int(8) NOT NULL,
 	`payment_id` int(8) NOT NULL,
+	`product_id` int(8) NOT NULL,
+	`qty` int(8) NOT NULL DEFAULT 1,
 	`status_id` tinyint(3) NOT NULL,
 	`date_purchased` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`date_refunded` timestamp NULL,
@@ -197,6 +202,10 @@ CREATE TABLE `order` (
 		ON DELETE RESTRICT,
 	CONSTRAINT `order_fk_2` FOREIGN KEY (`payment_id`)
 		REFERENCES `payment`(`payment_id`)
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+	CONSTRAINT `order_fk_3` FOREIGN KEY (`product_id`)
+		REFERENCES `product` (`product_id`)
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 );
