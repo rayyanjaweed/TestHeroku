@@ -101,14 +101,14 @@ public class CustomerDAO {
 			pstmt.setInt(1, custID);
 			rowsUpdated = pstmt.executeUpdate();*/
 		}catch(SQLException sqe){
-			System.err.println("CustomerDAO.deleteCustomer: Threw a SQLException while deleteing the customer with customeID = " + custID);
+			System.err.println("CustomerDAO.deleteCustomer: Threw a SQLException while deleteing the customer with customerID = " + custID);
   	      	System.err.println(sqe.getMessage());
 		} finally {
 			try {
 				pstmt.close();
 				conn.close();
 			} catch (Exception e) {
-				System.err.println("CustomerDAO.deleteCustomer: Threw an Exception while deleteing the customer with customeID = " + custID);
+				System.err.println("CustomerDAO.deleteCustomer: Threw an Exception while deleteing the customer with customerID = " + custID);
 			}
 		}
 		return (rowsUpdated == 1) ? true : false;
