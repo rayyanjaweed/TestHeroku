@@ -12,6 +12,10 @@ public class OrderImpl implements Order{
 	private int paymentID;
 	private String trackingNumber;
 	
+	private int productID;
+	private int qty;
+
+	
 	
 	public Timestamp getDatePurchased() {
 		return datePurchased;

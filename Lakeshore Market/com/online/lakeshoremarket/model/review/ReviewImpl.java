@@ -49,7 +49,7 @@ public class ReviewImpl implements Review{
 	}
 	
 	// Constructors might not be needed at all
-	*//**
+	/**
 	* <h1>Constructor for Product Review</h1>
 	* This Constructor is used for creating an object of PRODUCT REVIEW
 	* <p>

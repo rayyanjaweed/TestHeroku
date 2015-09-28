@@ -1,6 +1,6 @@
 package com.online.lakeshoremarket.model.cart;
 
-public class CartLineImpl {
+public class CartLineImpl implements CartLine {
 
 	private int cartLineID;
 	private int customerID;
