@@ -87,14 +87,19 @@ public class CustomerDAO {
 		return addressID;
 	}
 
-	public int deleteCustomer(int custID) {
+	public boolean deleteCustomer(int custID) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
 		try{
-			String deleteStmt = "DELETE FROM customer WHERE customer_id = ? ";
-			pstmt = conn.prepareStatement(deleteStmt);
+			String updateStmt = "UPDATE customer SET active = 0 WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(updateStmt);
 			pstmt.setInt(1, custID);
 			rowsUpdated = pstmt.executeUpdate();
+			//This code section is commented because we don't actually have to delete the customer instead make the customer inactive
+			/*String deleteStmt = "DELETE FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(deleteStmt);
+			pstmt.setInt(1, custID);
+			rowsUpdated = pstmt.executeUpdate();*/
 		}catch(SQLException sqe){
 			System.err.println("CustomerDAO.deleteCustomer: Threw a SQLException while deleteing the customer with customeID = " + custID);
   	      	System.err.println(sqe.getMessage());
@@ -106,7 +111,7 @@ public class CustomerDAO {
 				System.err.println("CustomerDAO.deleteCustomer: Threw an Exception while deleteing the customer with customeID = " + custID);
 			}
 		}
-		return rowsUpdated;
+		return (rowsUpdated == 1) ? true : false;
 	}
 
 	public int deleteCustomerAddress(int addressID) {

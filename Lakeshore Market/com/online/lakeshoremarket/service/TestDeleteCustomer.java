@@ -8,7 +8,7 @@ public class TestDeleteCustomer {
 
 		boolean isCustomerDeleted = false;
 		CustomerDomain custDomain = new CustomerDomain();
-		int custID = 4;
+		int custID = 1;
 		isCustomerDeleted = custDomain.deleteCustomer(custID);
 		if(isCustomerDeleted){
 			System.out.println("Customer is deleted from the system");

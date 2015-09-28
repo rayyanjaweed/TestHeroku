@@ -32,7 +32,10 @@ public class CustomerDomain {
 	public boolean deleteCustomer(int custID) {
 		boolean isCustomerDeleted = false ;
 		custDao = new CustomerDAO();
-		int billingAddressID = 0;
+		isCustomerDeleted = custDao.deleteCustomer(custID);
+		
+		//This code section is commented because we don't actually have to delete the customer instead make the customer inactive
+		/*int billingAddressID = 0;
 		int shippingAddressID = 0;
 		int funcReturn = 0;
 		billingAddressID = getCustomerBillingAddress(custID);
@@ -48,7 +51,7 @@ public class CustomerDomain {
 					isCustomerDeleted = true;
 				}
 			}
-		}
+		}*/
 		return isCustomerDeleted;
 	}
 	
