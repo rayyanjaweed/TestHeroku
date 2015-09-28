@@ -2,6 +2,8 @@ package com.online.lakeshoremarket.model.customer;
 
 public interface Customer {
 	
+	public boolean isActive();
+	public void setActive(boolean isActive);
 	public int getBillingAddress();
 	public void setBillingAddress(int billingAddress);
 	public int getShippingAddress();

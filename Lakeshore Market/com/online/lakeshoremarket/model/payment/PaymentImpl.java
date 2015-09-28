@@ -1,28 +1,28 @@
 package com.online.lakeshoremarket.model.payment;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
-public class PaymentImpl {
+public class PaymentImpl implements Payment{
 
-	private Date datePaid;
-	private Date dateReturned;
+	private Timestamp datePaid;
+	private Timestamp dateReturned;
 	private float totalPaid;
 	private int paymentID;
 	private int paymentStatusCode;
-	private String methodOfPayment;
-	private String methodTransactionID;
+	private char methodOfPayment;
+	private int methodTransactionID;
 	
 	
-	public Date getDatePaid() {
+	public Timestamp getDatePaid() {
 		return datePaid;
 	}
-	public void setDatePaid(Date datePaid) {
+	public void setDatePaid(Timestamp datePaid) {
 		this.datePaid = datePaid;
 	}
-	public Date getDateReturned() {
+	public Timestamp getDateReturned() {
 		return dateReturned;
 	}
-	public void setDateReturned(Date dateReturned) {
+	public void setDateReturned(Timestamp dateReturned) {
 		this.dateReturned = dateReturned;
 	}
 	public float getTotalPaid() {
@@ -40,19 +40,19 @@ public class PaymentImpl {
 	public int getPaymentStatusCode() {
 		return paymentStatusCode;
 	}
-	public void setStatusCode(int paymentStatusCode) {
+	public void setPaymentStatusCode(int paymentStatusCode) {
 		this.paymentStatusCode = paymentStatusCode;
 	}
-	public String getMethodOfPayment() {
+	public char getMethodOfPayment() {
 		return methodOfPayment;
 	}
-	public void setMethodOfPayment(String methodOfPayment) {
+	public void setMethodOfPayment(char methodOfPayment) {
 		this.methodOfPayment = methodOfPayment;
 	}
-	public String getMethodTransactionID() {
+	public int getMethodTransactionID() {
 		return methodTransactionID;
 	}
-	public void setMethodTransactionID(String methodTransactionID) {
+	public void setMethodTransactionID(int methodTransactionID) {
 		this.methodTransactionID = methodTransactionID;
 	}
 	

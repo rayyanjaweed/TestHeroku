@@ -81,3 +81,5 @@ public class ProductImpl implements Product{
 	
 	
 }
+
+//TODO Remove either this or the ProdImpl file.

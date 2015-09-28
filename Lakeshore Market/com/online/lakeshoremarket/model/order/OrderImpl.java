@@ -1,11 +1,11 @@
 package com.online.lakeshoremarket.model.order;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
-public class OrderImpl {
+public class OrderImpl implements Order{
 
-	private Date datePurchased;
-	private Date dateRefunded;
+	private Timestamp datePurchased;
+	private Timestamp dateRefunded;
 	private int customerID;
 	private int orderID;
 	private int orderStatusCode;
@@ -13,16 +13,16 @@ public class OrderImpl {
 	private String trackingNumber;
 	
 	
-	public Date getDatePurchased() {
+	public Timestamp getDatePurchased() {
 		return datePurchased;
 	}
-	public void setDatePurchased(Date datePurchased) {
+	public void setDatePurchased(Timestamp datePurchased) {
 		this.datePurchased = datePurchased;
 	}
-	public Date getDateRefunded() {
+	public Timestamp getDateRefunded() {
 		return dateRefunded;
 	}
-	public void setDateRefunded(Date dateRefunded) {
+	public void setDateRefunded(Timestamp dateRefunded) {
 		this.dateRefunded = dateRefunded;
 	}
 	public int getCustomerID() {

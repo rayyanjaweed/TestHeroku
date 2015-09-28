@@ -12,7 +12,7 @@ public class TestProductEntry {
 		prodNew.setTaxonomyID(1);
 		prodNew.setCost(110);
 		prodNew.setPrice(300);
-		prodNew.setProductName("Test6");
+		prodNew.setProductName("Test2");
 		prodNew.setDescription("This xzcvxzcizdffzdfvdzfvs afdsbdsfbffdsbsdsbHDMI cable for connecting to the TV");
 		prodNew.setQoh(33);
 		prodNew.setActive(true);

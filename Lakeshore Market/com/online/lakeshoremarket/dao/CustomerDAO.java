@@ -19,18 +19,19 @@ public class CustomerDAO {
 		int rowsUpdated = 0;
 		try{
 			String insertStmt = "INSERT INTO customer "
-											+ "(ship_address_id, bill_address_id, tel, email, name, title, password, paypal_cust_id) "
+											+ "(ship_address_id, bill_address_id, tel, email, first_name, last_name, title, password, paypal_cust_id) "
 								+ "VALUES "
-											+ "(?,?,?,?,?,?,?,?)";
+											+ "(?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(insertStmt);
 			pstmt.setInt(1, cust.getShippingAddress());
 			pstmt.setInt(2, cust.getBillingAddress());
 			pstmt.setString(3, cust.getPhone());
 			pstmt.setString(4, cust.getEmail());
 			pstmt.setString(5, cust.getFirstName());
-			pstmt.setString(6, cust.getTitle());
-			pstmt.setString(7, cust.getPassword());
-			pstmt.setString(8, cust.getPaypalCustID());
+			pstmt.setString(6, cust.getLastName());
+			pstmt.setString(7, cust.getTitle());
+			pstmt.setString(8, cust.getPassword());
+			pstmt.setString(9, cust.getPaypalCustID());
 			rowsUpdated = pstmt.executeUpdate();
 		}catch(SQLException sqe){
 			System.err.println("CustomerDAO.addCustomer: Threw a SQLException inserting a new customer in table.");
@@ -86,36 +87,127 @@ public class CustomerDAO {
 		return addressID;
 	}
 
-	public void deleteCustomer(int custID) {
+	public boolean deleteCustomer(int custID) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
 		try{
-			String deleteStmt = "INSERT INTO customer "
-											+ "(ship_address_id, bill_address_id, tel, email, name, title, password, paypal_cust_id) "
-								+ "VALUES "
-											+ "(?,?,?,?,?,?,?,?)";
-			pstmt = conn.prepareStatement(insertStmt);
-			pstmt.setInt(1, cust.getShippingAddress());
-			pstmt.setInt(2, cust.getBillingAddress());
-			pstmt.setString(3, cust.getPhone());
-			pstmt.setString(4, cust.getEmail());
-			pstmt.setString(5, cust.getFirstName());
-			pstmt.setString(6, cust.getTitle());
-			pstmt.setString(7, cust.getPassword());
-			pstmt.setString(8, cust.getPaypalCustID());
+			String updateStmt = "UPDATE customer SET active = 0 WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(updateStmt);
+			pstmt.setInt(1, custID);
 			rowsUpdated = pstmt.executeUpdate();
+			//This code section is commented because we don't actually have to delete the customer instead make the customer inactive
+			/*String deleteStmt = "DELETE FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(deleteStmt);
+			pstmt.setInt(1, custID);
+			rowsUpdated = pstmt.executeUpdate();*/
 		}catch(SQLException sqe){
-			System.err.println("CustomerDAO.addCustomer: Threw a SQLException inserting a new customer in table.");
+			System.err.println("CustomerDAO.deleteCustomer: Threw a SQLException while deleteing the customer with customerID = " + custID);
   	      	System.err.println(sqe.getMessage());
 		} finally {
 			try {
 				pstmt.close();
 				conn.close();
 			} catch (Exception e) {
-				System.err.println("CustomerDAO.addCustomer: Threw an Exception inserting a new customer in table.");
+				System.err.println("CustomerDAO.deleteCustomer: Threw an Exception while deleteing the customer with customerID = " + custID);
 			}
 		}
-//		return rowsUpdated;
-		
+		return (rowsUpdated == 1) ? true : false;
+	}
+
+	public int deleteCustomerAddress(int addressID) {
+		int rowsUpdated = 0;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String deleteStmt = "DELETE FROM address WHERE address_id = ? " ;
+			pstmt = conn.prepareStatement(deleteStmt);
+			pstmt.setInt(1, addressID);
+			rowsUpdated = pstmt.executeUpdate();
+		}catch(SQLException sqe){
+			System.err.println("CustomerDAO.deleteCustomerAddress: Threw a SQLException while deleting customer address where addressID = "+addressID);
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("CustomerDAO.deleteCustomerAddress: Threw an Exception while deleting customer address where addressID = "+addressID);
+			}
+		}
+		return rowsUpdated;
+	}
+
+	public int getCustomerBillingAddress(int custID) {
+		int billingAddressID = 0;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String getQuery = "SELECT bill_address_id FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, custID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				billingAddressID = resultSet.getInt("bill_address_id");
+			}
+		}catch(SQLException sqe){
+			System.err.println("CustomerDAO.getCustomerBillingAddress: Threw a SQLException while getting customer billing address.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("CustomerDAO.getCustomerBillingAddress: Threw a Exception while getting customer billing address.");
+			}
+		}
+		return billingAddressID;
+	}
+
+	public int getCustomerShippingAddress(int custID) {
+		int shippingAddressID = 0;
+		conn = DatabaseConnection.getSqlConnection();
+		try{
+			String getQuery = "SELECT ship_address_id FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, custID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				shippingAddressID = resultSet.getInt("ship_address_id");
+			}
+		}catch(SQLException sqe){
+			System.err.println("CustomerDAO.getCustomerShippingAddress: Threw a SQLException while getting customer shipping address.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("CustomerDAO.getCustomerShippingAddress: Threw a Exception while getting customer shipping address.");
+			}
+		}
+		return shippingAddressID;
+	}
+
+	public boolean getStatus(int custID) {
+		conn = DatabaseConnection.getSqlConnection();
+		boolean isCustomerActive = false;
+		try{
+			String getQuery = "SELECT active FROM customer WHERE customer_id = ? ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, custID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				isCustomerActive = resultSet.getBoolean("active");
+			}
+		}catch(SQLException sqe){
+			System.err.println("CustomerDAO.getStatus: Threw a SQLException while getting customer active status.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("CustomerDAO.getStatus: Threw a Exception while getting customer active status.");
+			}
+		}
+		return isCustomerActive;
 	}
 }

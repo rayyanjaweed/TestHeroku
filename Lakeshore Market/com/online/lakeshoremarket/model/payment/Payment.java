@@ -1,23 +1,23 @@
 package com.online.lakeshoremarket.model.payment;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public interface Payment {
 
-	public Date getDatePaid();
-	public void setDatePaid(Date datePaid);
-	public Date getDateReturned();
-	public void setDateReturned(Date dateReturned);
+	public Timestamp getDatePaid();
+	public void setDatePaid(Timestamp datePaid);
+	public Timestamp getDateReturned();
+	public void setDateReturned(Timestamp dateReturned);
 	public float getTotalPaid();
 	public void setTotalPaid(float totalPaid);
 	public int getPaymentID();
 	public void setPaymentID(int paymentID);
 	public int getPaymentStatusCode();
 	public void setPaymentStatusCode(int paymentStatusCode);
-	public String getMethodOfPayment();
-	public void setMethodOfPayment(String methodOfPayment);
-	public String getMethodTransactionID();
-	public void setMethodTransactionID(String methodTransactionID);
+	public char getMethodOfPayment();
+	public void setMethodOfPayment(char methodOfPayment);
+	public int getMethodTransactionID();
+	public void setMethodTransactionID(int methodTransactionID);
 	
 	
 }

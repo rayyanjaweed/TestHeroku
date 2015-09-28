@@ -2,6 +2,7 @@ package com.online.lakeshoremarket.model.customer;
 
 public class CustomerImpl implements Customer{
 
+	private boolean isActive;
 	private int billingAddress;
 	private int shippingAddress;
 	private int customerId;
@@ -14,6 +15,12 @@ public class CustomerImpl implements Customer{
 	private String title;
 	
 	
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	public int getBillingAddress() {
 		return billingAddress;
 	}
@@ -75,5 +82,6 @@ public class CustomerImpl implements Customer{
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	
 }
