@@ -10,11 +10,20 @@ import com.online.lakeshoremarket.model.product.ProdImpl;
 import com.online.lakeshoremarket.model.product.Product;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * represents the product database access object
+ * used to interact with the database
+ */
 public class ProductDAO {
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
+	/**
+	 * Gets a product by name
+	 * @param prodName 		the product name
+	 * @return 				the product object or null if not found
+	 */
 	public Product getProductByName(String prodName){
 		Product prod = null;
 		conn = DatabaseConnection.getSqlConnection();
@@ -49,6 +58,11 @@ public class ProductDAO {
 		return prod;
 	}
 	
+	/**
+	 * searches for a product by a similar name
+	 * @param prodName 		the name of the product to search for
+	 * @return				an array of products or null if nothing found 
+	 */
 	public ArrayList<Product> getProductByLikeName(String prodName){
 		Product prod = null;
 		ArrayList<Product> prodList = new ArrayList<Product>();
@@ -85,6 +99,11 @@ public class ProductDAO {
 		return prodList;
 	}
 	
+	/**
+	 * Creates a product
+	 * @param prod 		the product object to create in the DB
+	 * @return			number of rows updated
+	 */
 	public int createProduct(Product prod){
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
@@ -118,6 +137,11 @@ public class ProductDAO {
 		return rowsUpdated;
 	}
 
+	/**
+	 * Determines if a product is available or not
+	 * @param prodName			the product name	
+	 * @return					true if available, else false
+	 */
 	public boolean getProductAvailability(String prodName) {
 		boolean isProductAvailable = false;
 		conn = DatabaseConnection.getSqlConnection();
@@ -145,6 +169,11 @@ public class ProductDAO {
 		return isProductAvailable;
 	}
 
+	/**
+	 * gets a product availability by product ID
+	 * @param prodID 		the product ID to inquire on
+	 * @return 				true if available, else false
+	 */
 	public boolean getProductAvailabilityByID(int prodID) {
 		boolean isProductAvailable = false;
 		conn = DatabaseConnection.getSqlConnection();
@@ -172,6 +201,11 @@ public class ProductDAO {
 		return isProductAvailable;
 	}
 
+	/**
+	 * gets the product price 
+	 * @param prodID 		the product id to inquire
+	 * @return 				the price of the product
+	 */
 	public int getProductPrice(int prodID) {
 		int price = 0;
 		conn = DatabaseConnection.getSqlConnection();
@@ -197,6 +231,11 @@ public class ProductDAO {
 		return price;
 	}
 
+	/**
+	 * decreases Quantity on hand (qoh) by a certain value
+	 * @param prodID		the product ID to decrement
+	 * @param quantity		the quantity to decrement by
+	 */
 	public void decreaseQoh(int prodID, int quantity) {
 		conn = DatabaseConnection.getSqlConnection();
 		try{
@@ -218,6 +257,12 @@ public class ProductDAO {
 		}
 	}
 
+	/**
+	 * increases QOH by a certain value
+	 * @param prodID 		the product ID to increment
+	 * @param quantity		the amount to increment by
+	 * @return				true for success, false else
+	 */
 	public boolean increaseQoh(int prodID, int quantity) {
 		int rowsUpdated = 0;
 		conn = DatabaseConnection.getSqlConnection();

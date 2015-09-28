@@ -11,6 +11,11 @@ import com.online.lakeshoremarket.model.order.OrderImpl;
 import com.online.lakeshoremarket.util.Constant;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * Represents the order database access object
+ * used for interacting with the database
+ *
+ */
 public class OrderDAO {
 
 	

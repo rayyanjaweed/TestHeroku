@@ -11,7 +11,7 @@ import com.online.lakeshoremarket.util.DatabaseConnection;
 
 /**
  * Represents the data access object for the customer
- *
+ * used for interacting with the database 
  */
 public class CustomerDAO {
 

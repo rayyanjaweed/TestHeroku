@@ -7,11 +7,20 @@ import java.sql.SQLException;
 import com.online.lakeshoremarket.model.review.Review;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
+/**
+ * Represents the review data access object
+ * interacts with the database object
+ */
 public class ReviewDAO {
 
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	
+	/**
+	 * adds a review of a partner by a customer
+	 * @param review		the review to insert
+	 * @return				true if inserted OK, false else
+	 */
 	public boolean addPartnerReview(Review review) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
@@ -41,6 +50,11 @@ public class ReviewDAO {
 		return (rowsUpdated == 0) ? false : true ;
 	}
 
+	/**
+	 * inserts a review of a product by a customer
+	 * @param review 		the review to insert
+	 * @return				true for inserted OK, false else
+	 */
 	public boolean addProductReview(Review review) {
 		conn = DatabaseConnection.getSqlConnection();
 		int rowsUpdated = 0;
