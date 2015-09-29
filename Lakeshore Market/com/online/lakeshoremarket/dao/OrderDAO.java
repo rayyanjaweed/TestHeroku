@@ -25,9 +25,11 @@ public class OrderDAO {
 	/**
 	 * creates an order in the database
 	 * @param custOrder 	the order to create
-	 * @return void
+	 * @return int	orderID
 	 */
-	public void createOrder(Order custOrder) {
+	public int createOrder(Order custOrder) {
+		int rowsUpdated = 0;
+		int orderID = 0;
 		conn = DatabaseConnection.getSqlConnection();
 		try{
 			String insertStmt = "INSERT INTO `order` "
@@ -44,7 +46,15 @@ public class OrderDAO {
 			pstmt.setString(6, custOrder.getTrackingNumber());
 			pstmt.setInt(7, custOrder.getProductID());
 			pstmt.setInt(8, custOrder.getQty());
-			pstmt.executeUpdate();
+			rowsUpdated = pstmt.executeUpdate();
+			if(0 != rowsUpdated){
+				String selectQuery = "SELECT MAX(order_id) FROM `order`";
+				pstmt = conn.prepareStatement(selectQuery);
+				ResultSet resultSet = pstmt.executeQuery();
+				if(resultSet.next()){
+					orderID = resultSet.getInt(1);
+				}
+			}
 		}catch(SQLException sqe){
 			System.err.println("OrderDAO.createOrder: Threw a SQLException inserting a new order in table.");
   	      	System.err.println(sqe.getMessage());
@@ -56,6 +66,7 @@ public class OrderDAO {
 				System.err.println("OrderDAO.createOrder: Threw an Exception inserting a new order in table.");
 			}
 		}
+		return orderID;
 	}
 
 	/**

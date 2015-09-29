@@ -20,9 +20,11 @@ public class OrderDomain {
 	 * creates an order
 	 * @param custOrder		the order object to create
 	 */
-	public void createOrder(Order custOrder) {
+	public int createOrder(Order custOrder) {
+		int orderID = 0;
 		orderDao = new OrderDAO();
-		orderDao.createOrder(custOrder);
+		orderID = orderDao.createOrder(custOrder);
+		return orderID;
 	}
 	
 	/**

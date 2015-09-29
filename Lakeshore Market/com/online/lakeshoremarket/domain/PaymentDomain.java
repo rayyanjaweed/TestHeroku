@@ -44,7 +44,7 @@ public class PaymentDomain {
 			custOrder.setCustomerID(custID);
 			custOrder.setProductID(prodID);
 			custOrder.setQty(quantity);
-			orderDomain.createOrder(custOrder);
+			orderID = orderDomain.createOrder(custOrder);
 			
 			
 		}

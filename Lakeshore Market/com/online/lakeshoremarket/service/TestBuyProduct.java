@@ -7,10 +7,18 @@ public class TestBuyProduct {
 	public static void main(String[] args) {
 
 		PaymentDomain paymentDomain = new PaymentDomain();
-		int prodID = 14;
-		int quantity = 3;
+		int prodID = 21;
+		int quantity = 5;
 		int custID = 2;
-		paymentDomain.buyProduct(prodID, quantity, custID);
+		
+		
+		int orderID = 0;
+		orderID = paymentDomain.buyProduct(prodID, quantity, custID);
+		
+		
+		if(0 != orderID){
+			System.out.println("Congratulations your order has been placed");
+		}
 	}
 
 }
