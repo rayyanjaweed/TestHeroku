@@ -4,7 +4,7 @@ package com.online.lakeshoremarket.model.cart;
  * instantiates the cart interface
  *
  */
-public class CartImpl {
+public class CartImpl implements Cart {
 
 	private int customerId;
 
