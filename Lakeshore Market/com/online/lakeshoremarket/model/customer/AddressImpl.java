@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.customer;
 
+/**
+ * instantiates the address interface to represent the address model
+ *
+ */
 public class AddressImpl implements Address{
 
 	private int addressID;
@@ -11,7 +15,7 @@ public class AddressImpl implements Address{
 	private String state;
 	private String zip;
 	
-	
+
 	public int getAddressID() {
 		return addressID;
 	}

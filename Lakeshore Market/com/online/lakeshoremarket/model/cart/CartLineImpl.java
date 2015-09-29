@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.cart;
 
+/**
+ * instantiates the cart line interface
+ *
+ */
 public class CartLineImpl implements CartLine {
 
 	private int cartLineID;

@@ -2,6 +2,10 @@ package com.online.lakeshoremarket.model.payment;
 
 import java.sql.Timestamp;
 
+/**
+ * instantiates the payment interface to represent the payment model
+ *
+ */
 public class PaymentImpl implements Payment{
 
 	private Timestamp datePaid;

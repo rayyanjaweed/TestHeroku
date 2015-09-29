@@ -9,7 +9,7 @@ public class TestOrderStatus {
 
 		OrderDomain orderDomain = new OrderDomain();
 		int orderStatus = -1;
-		int orderID = 1;
+		int orderID = 4;
 		orderStatus = orderDomain.getOrderStatus(orderID);
 
 		if(orderStatus == Constant.CANCELLED){

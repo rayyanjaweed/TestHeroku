@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.taxonomy;
 
+/**
+ * instantiates the taxonomy interface to represent the taxonomy model
+ *
+ */
 public class TaxonomyImpl {
 
 	private int taxonomyID;

@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.customer;
 
+/**
+ * instantiates the customer interface to represent the customer model
+ *
+ */
 public class CustomerImpl implements Customer{
 
 	private boolean isActive;
