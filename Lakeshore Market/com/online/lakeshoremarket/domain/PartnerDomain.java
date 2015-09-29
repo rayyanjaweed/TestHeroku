@@ -1,6 +1,5 @@
 package com.online.lakeshoremarket.domain;
 
-import com.online.lakeshoremarket.dao.CustomerDAO;
 import com.online.lakeshoremarket.dao.PartnerDAO;
 import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
@@ -65,5 +64,10 @@ public class PartnerDomain {
 		partnerDao = new PartnerDAO();
 		isPartnerActive = partnerDao.getStatus(partnerID);
 		return isPartnerActive;
+	}
+
+	public boolean notifySales(int partnerID) {
+		//This method is left unimplemented intentionally. It will accommodate notification to the partner through an email
+		return true;
 	}
 }
