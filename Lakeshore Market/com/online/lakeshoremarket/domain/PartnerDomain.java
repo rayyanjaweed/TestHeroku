@@ -1,8 +1,12 @@
 package com.online.lakeshoremarket.domain;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.online.lakeshoremarket.dao.PartnerDAO;
 import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
+import com.online.lakeshoremarket.model.partnerReport.PartnerReport;
 
 /**
  * Represents the partner domain business logic
@@ -69,5 +73,25 @@ public class PartnerDomain {
 	public boolean notifySales(int partnerID) {
 		//This method is left unimplemented intentionally. It will accommodate notification to the partner through an email
 		return true;
+	}
+
+	public void generatePartnerReport(int partnerID) {
+		ArrayList<PartnerReport> partnerReport = new ArrayList<PartnerReport>();
+		partnerDao = new PartnerDAO();
+		partnerReport = partnerDao.generatePartnerReport(partnerID);
+		System.out.println("product_id		qty		cost		price		total_cost		total_price		total_profit		Grand Total");
+		
+		
+		
+		for (PartnerReport temp : partnerReport) {
+			System.out.println(temp.getProductId()+"			"
+					+temp.getQuantity()+"		"
+					+temp.getCost()+"		"
+					+temp.getPrice()+"		"
+					+temp.getTotalCost()+"			"
+					+temp.getTotalPrice()+"			"
+					+temp.getTotalProfit()+"		");
+		}
+		
 	}
 }

@@ -7,7 +7,7 @@ public class TestCancelOrder {
 	public static void main(String[] args) {
 
 		OrderDomain orderDomain = new OrderDomain();
-		int orderID = 1;
+		int orderID = 4;
 		boolean isOrderRefunded = false;
 		isOrderRefunded = orderDomain.cancelAndRefundOrder(orderID);
 		if(isOrderRefunded){

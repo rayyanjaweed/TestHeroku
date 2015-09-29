@@ -79,11 +79,11 @@ public class OrderDomain {
 		paymentDomain.refundCustomerMoney(custOrder.getPaymentID());
 		updateOrderStatusForRefund(orderID);
 		ProductDomain productDomain = new ProductDomain();
-		//TODO get quantity and prodID from the order
+		/*//TODO get quantity and prodID from the order
 		int quantity = 2;
-		int prodID = 12;
+		int prodID = 12;*/
 		boolean isQuantityIncreased = false;
-		isQuantityIncreased = productDomain.increaseQoh(prodID, quantity);
+		isQuantityIncreased = productDomain.increaseQoh(custOrder.getProductID(), custOrder.getQty());
 		if(isQuantityIncreased){
 			isOrderRefunded = isQuantityIncreased;
 		}

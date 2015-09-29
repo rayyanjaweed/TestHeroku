@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.online.lakeshoremarket.model.customer.Address;
 import com.online.lakeshoremarket.model.partner.Partner;
+import com.online.lakeshoremarket.model.partnerReport.PartnerReport;
+import com.online.lakeshoremarket.model.partnerReport.PartnerReportImpl;
 import com.online.lakeshoremarket.util.DatabaseConnection;
 
 /**
@@ -158,6 +161,52 @@ public class PartnerDAO {
 			}
 		}
 		return isPartnerActive;
+	}
+
+	public ArrayList<PartnerReport> generatePartnerReport(int partnerID) {
+		conn = DatabaseConnection.getSqlConnection();
+		ArrayList<PartnerReport> paReports = null;
+		try{
+			PartnerReport partnerReport = null;
+			paReports = new ArrayList<PartnerReport>();
+			String getQuery = 		"SELECT"
+										+ " `order`.product_id, "
+										+ " `order`.qty, product.cost, "
+										+ " product.price, "
+										+ " ( product.cost * `order`.qty ) AS `total_cost` , "
+										+ " ( product.price * `order`.qty ) AS `total_price` , "
+										+ " (( product.price * `order`.qty ) - ( product.cost * `order`.qty )) AS `total_profit` "
+									+ "	FROM `order` "
+									+ "	INNER JOIN product "
+									+ "	ON `order`.product_id=product.product_id  AND product.partner_id = ? "
+									+ "	WHERE status_id NOT IN(0) ";
+			pstmt = conn.prepareStatement(getQuery);
+			pstmt.setInt(1, partnerID);
+			ResultSet resultSet = pstmt.executeQuery();
+			while(resultSet.next()){
+				partnerReport = new PartnerReportImpl();
+				partnerReport.setProductId(resultSet.getInt("product_id"));
+				partnerReport.setQuantity(resultSet.getInt("qty"));
+				partnerReport.setCost(resultSet.getInt("cost"));
+				partnerReport.setPrice(resultSet.getInt("price"));
+				partnerReport.setTotalCost(resultSet.getInt("total_cost"));
+				partnerReport.setTotalPrice(resultSet.getInt("total_price"));
+				partnerReport.setTotalProfit(resultSet.getInt("total_profit"));
+				
+				paReports.add(partnerReport);
+			}
+		}catch(SQLException sqe){
+			System.err.println("PartnerDAO.generatePartnerReport: Threw a SQLException while generating partner sales report.");
+  	      	System.err.println(sqe.getMessage());
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				System.err.println("PartnerDAO.generatePartnerReport: Threw a Exception while generating partner sales report.");
+			}
+		}
+		return paReports;
 	}
 
 }

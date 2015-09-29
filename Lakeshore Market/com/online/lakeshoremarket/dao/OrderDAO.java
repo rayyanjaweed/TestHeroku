@@ -166,6 +166,8 @@ public class OrderDAO {
 				custOrder.setOrderStatusCode(resultSet.getInt("status_id"));
 				custOrder.setDatePurchased(resultSet.getTimestamp("date_purchased"));
 				custOrder.setTrackingNumber(resultSet.getString("tracking_number"));
+				custOrder.setProductID(resultSet.getInt("product_id"));
+				custOrder.setQty(resultSet.getInt("qty"));
 			}
 		}catch(SQLException sqe){
 			System.err.println("OrderDAO.getOrderDetails: Threw a SQLException while getting order details for the orderID = "+orderID);
