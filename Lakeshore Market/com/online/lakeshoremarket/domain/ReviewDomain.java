@@ -6,10 +6,19 @@ import java.util.Date;
 import com.online.lakeshoremarket.dao.ReviewDAO;
 import com.online.lakeshoremarket.model.review.Review;
 
+/**
+ * Represents the review domain business logic
+ *
+ */
 public class ReviewDomain {
 	
 	ReviewDAO reviewDAO = null;
 
+	/**
+	 * Adds a review by a customer of a partner
+	 * @param review 	the review to add
+	 * @return			true if success, false else
+	 */
 	public boolean addPartnerReview(Review review) {
 		boolean isPartnerReviewAdded = false;
 		reviewDAO = new ReviewDAO();
@@ -20,6 +29,11 @@ public class ReviewDomain {
 		return isPartnerReviewAdded;
 	}
 
+	/**
+	 * adds a review by a customer of a product
+	 * @param review	the review to add
+	 * @return			true if success, false else
+	 */
 	public boolean addProductReview(Review review) {
 		boolean isProductReviewAdded = false;
 		reviewDAO = new ReviewDAO();
