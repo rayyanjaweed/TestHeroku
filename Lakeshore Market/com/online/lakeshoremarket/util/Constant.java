@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.util;
 
+/**
+ * represents constants used throughout the different objects and methods in this project
+ *
+ */
 public final class Constant {
 
 	//For Payment Method

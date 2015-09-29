@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * manages the db connection
+ *
+ */
 public class DatabaseConnection {
 
 	/**
-	 * 
+	 * gets a connection
 	 * @return returns the connection status.
 	 */
 	public static Connection getSqlConnection () {
