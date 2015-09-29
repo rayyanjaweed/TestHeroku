@@ -1,7 +1,7 @@
 package com.online.lakeshoremarket.model.customer;
 
 /**
- * represents the a customer in the database
+ * represents a customer in the database
  *
  */
 public interface Customer {

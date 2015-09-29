@@ -203,7 +203,7 @@ CREATE TABLE `order` (
 	CONSTRAINT `order_fk_2` FOREIGN KEY (`payment_id`)
 		REFERENCES `payment`(`payment_id`)
 		ON UPDATE CASCADE
-		ON DELETE RESTRICT
+		ON DELETE RESTRICT,
 	CONSTRAINT `order_fk_3` FOREIGN KEY (`product_id`)
 		REFERENCES `product` (`product_id`)
 		ON UPDATE CASCADE
@@ -282,7 +282,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `partner` WRITE;
 /*!40000 ALTER TABLE `partner` DISABLE KEYS */;
-INSERT INTO `partner` 
+INSERT INTO `partner`
 	(`partner_id`, `address_id`, `name`, `contact_name`, `tel`, `email`, `password` )
 VALUES (1,1,'Lakeshore Market','Magliotyan','5551234567','epost@luc.edu','THIS NEEDS TO BE HASHED'),(2,23,'Good Stuff Sellers','Fatima Shaw','9337820435','info@gss.com','something'),(3,24,'Material Things and More','Courtney Bonner','8323339283','cbonner@materialt.com','password'),(4,25,'PurchaseCore','Mr. Fredrick Purchasecore','2366611123','fred@gmail.com','thebigapple'),(5,26,'Object Purveyors','Daphne Nikolaides','7684724449','dnikolai@op.com','monsoonsnubtacofixin'),(6,27,'Trading Post','Louisiana Khan','8476321322','loukhan@tradingpost.com','firefirefire');
 /*!40000 ALTER TABLE `partner` ENABLE KEYS */;

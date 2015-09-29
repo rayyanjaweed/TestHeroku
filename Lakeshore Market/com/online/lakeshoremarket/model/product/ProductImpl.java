@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.product;
 
+/**
+ * instantiates the product interface to represent the product model
+ *
+ */
 public class ProductImpl implements Product{
 
 	private boolean isActive;

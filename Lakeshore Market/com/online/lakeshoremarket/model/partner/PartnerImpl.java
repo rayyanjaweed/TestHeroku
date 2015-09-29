@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.partner;
 
+/**
+ * instantiates the partner interface to represent the partner model
+ *
+ */
 public class PartnerImpl implements Partner{
 
 	private boolean isActive;

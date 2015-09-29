@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.order;
 
+/**
+ * instantiates the order line interface to represent the order model
+ *
+ */
 public class OrderLineImpl {
 
 	private int orderLineID;

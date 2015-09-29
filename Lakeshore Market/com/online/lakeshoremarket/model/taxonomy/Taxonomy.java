@@ -1,5 +1,9 @@
 package com.online.lakeshoremarket.model.taxonomy;
 
+/**
+ * represents a taxonomy in the database
+ *
+ */
 public interface Taxonomy {
 
 	public int getTaxonomyID();

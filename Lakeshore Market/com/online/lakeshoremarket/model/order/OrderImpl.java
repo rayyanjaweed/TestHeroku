@@ -2,6 +2,10 @@ package com.online.lakeshoremarket.model.order;
 
 import java.sql.Timestamp;
 
+/**
+ * instantiates the order interface to represent the order model
+ *
+ */
 public class OrderImpl implements Order{
 
 	private Timestamp datePurchased;

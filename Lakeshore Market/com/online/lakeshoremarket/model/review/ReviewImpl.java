@@ -2,6 +2,10 @@ package com.online.lakeshoremarket.model.review;
 
 import java.sql.Timestamp;
 
+/**
+ * instantiates the review interface to represent the review model
+ *
+ */
 public class ReviewImpl implements Review{
 
 	private int customerID;

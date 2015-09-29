@@ -1,7 +1,10 @@
 package com.online.lakeshoremarket.model.review;
 
 import java.sql.Timestamp;
-
+/**
+ * represents a review in the database
+ *
+ */
 public interface Review {
 
 	public int getCustomerID();
