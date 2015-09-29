@@ -31,9 +31,9 @@ public class OrderDAO {
 		conn = DatabaseConnection.getSqlConnection();
 		try{
 			String insertStmt = "INSERT INTO `order` "
-											+ "(customer_id, payment_id, status_id, date_purchased, date_refunded, tracking_number ) "
+											+ "(customer_id, payment_id, status_id, date_purchased, date_refunded, tracking_number, product_id, qty ) "
 								+ "VALUES "
-											+ "(?,?,?,?,?,?)";
+											+ "(?,?,?,?,?,?,?,?)";
 			
 			pstmt = conn.prepareStatement(insertStmt);
 			pstmt.setInt(1, custOrder.getCustomerID());
@@ -42,6 +42,8 @@ public class OrderDAO {
 			pstmt.setTimestamp(4, custOrder.getDatePurchased());
 			pstmt.setTimestamp(5, custOrder.getDateRefunded());
 			pstmt.setString(6, custOrder.getTrackingNumber());
+			pstmt.setInt(7, custOrder.getProductID());
+			pstmt.setInt(8, custOrder.getQty());
 			pstmt.executeUpdate();
 		}catch(SQLException sqe){
 			System.err.println("OrderDAO.createOrder: Threw a SQLException inserting a new order in table.");

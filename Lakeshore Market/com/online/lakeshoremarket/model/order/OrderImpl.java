@@ -12,9 +12,22 @@ public class OrderImpl implements Order{
 	private int paymentID;
 	private String trackingNumber;
 	
+	//We might remove these two attributes later on
 	private int productID;
 	private int qty;
-
+	public int getProductID() {
+		return productID;
+	}
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	//We might remove the above two attributes later on
 	
 	
 	public Timestamp getDatePurchased() {

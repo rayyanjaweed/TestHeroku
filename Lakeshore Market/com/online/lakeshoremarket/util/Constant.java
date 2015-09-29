@@ -47,6 +47,14 @@ public final class Constant {
 	 * This is for Order Status and its int value is 3
 	 */
 	public static int DELIVERED = 3;
+	/**
+	 * This is the username for the database connection.
+	 */
+	public static String USERNAME = "root";
+	/**
+	 * This is the password for the database connection.
+	 */
+	public static String PASSWORD = "tiger";
 	
 	
 }

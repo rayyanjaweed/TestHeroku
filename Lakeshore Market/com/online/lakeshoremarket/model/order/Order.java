@@ -20,4 +20,13 @@ public interface Order {
 	public void setTrackingNumber(String trackingNumber);
 	
 	
+	
+	//We might remove these two methods later on
+	public int getProductID();
+	public void setProductID(int productID);
+	public int getQty();
+	public void setQty(int qty);
+	//We might remove the above two methods later on
+	
+	
 }

@@ -196,6 +196,7 @@ public class ProductDAO {
 				conn.close();
 			} catch (Exception e) {
 				System.err.println("ProductDAO.getProductAvailabilityByID: Threw an Exception while checking product availability.");
+				System.err.println(e.getMessage());
 			}
 		}
 		return isProductAvailable;
